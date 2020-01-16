@@ -1,0 +1,81 @@
+body {
+    background-color: white;
+    font-family: Tahoma;
+}
+.box {
+    background-color: #edfff9;
+    width: 600px;
+    height: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+}
+p {
+    color: #32b899;
+    padding-left: 15px;
+    padding-top: 10px;
+}
+a {
+    color: dimgrey;
+    font-size: 10px;
+    padding-left: 15px;
+}
+#tarTitulo {
+    width: 450px;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+label{
+    font-size:small;
+    margin-left:15px;
+    margin-bottom:20px;
+}
+#geradorID {
+    width: 452px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+textarea{
+    margin-top:5px;
+}
+#tarStatus {
+    width: 452px;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+#tarData {
+    width: 450px;
+    margin-left: 29px;
+    margin-top: 5px;
+}
+button {
+    width: 80px;
+    background-color: #edfff9;
+    border: 2px solid #edfff9;
+    color: #2276a3;
+    margin-left: 75px;
+    margin-top: 5px;
+}
+input {
+    border: 1px solid #2276a3;
+    border-radius: 2px;
+}
+select {
+    border: 1px solid #2276a3;
+    border-radius: 2px;
+}
+textarea {
+    border: 1px solid #2276a3;
+    border-radius: 2px;
+}
+
+.botoes {
+    margin-top: 25px;
+    margin-left: 20px;
+}
+#descricao{
+    vertical-align: top;
+}

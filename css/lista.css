@@ -1,0 +1,85 @@
+﻿body {
+    background-color: white;
+    font-family: Tahoma;
+}
+
+.box {
+    background-color: #edfff9;
+    width: 100%;
+    height: 870px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    color: #32b899;
+    padding-left: 15px;
+    padding-top: 10px;
+    margin-bottom: 0px !important;
+}
+
+a {
+    color: dimgrey;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+th {
+    background-color: #aaa;
+    color: black;
+    font-size: small;
+    text-align: left;
+    padding: 8px;
+}
+
+td {
+    padding-left: 7px;
+}
+
+tr:nth-child(even) {
+    background-color: white;
+    font-size: small;
+    padding: 8px;
+}
+
+tr:nth-child(odd) {
+    background-color: #DDD;
+    font-size: small;
+    padding: 8px;
+}
+
+#inputFormPaginacao {
+    width: 50px !important;
+    border: 1px solid #1d2120;
+    border-radius: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.pimba {
+    background-color: #aaa;
+    padding: 5px;
+    ;
+}
+
+#numeroRegistros{
+    text-align: right;
+    color: #1d2120;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    float: right;
+}
+
+td{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
