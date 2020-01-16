@@ -1,4 +1,4 @@
-<!-- #include file = "conexao.asp" -->
+<!-- #include file = "../Servidor/conexao.asp" -->
 <!-- #include file = "AJAX/usuarioAjax.asp" -->
 <%
 Response.AddHeader "Content-Type", "text/html;charset=UTF-8"

@@ -1,5 +1,5 @@
 <!-- #include file = "validacaoTarefa.asp" -->
-<!-- #include file = "conexao.asp" -->
+<!-- #include file = "../Servidor/conexao.asp" -->
 <!-- #include file = "AJAX/tarefaAjax.asp" -->
 <%
 Response.AddHeader "Content-Type", "text/html;charset=UTF-8"

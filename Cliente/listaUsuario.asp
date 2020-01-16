@@ -1,5 +1,5 @@
-<!-- #include file = "header.asp" -->
-<!-- #include file = "conexao.asp" -->
+<!-- #include file = "Includes/header.asp" -->
+<!-- #include file = "../Servidor/conexao.asp" -->
 <!-- #include file = "paginacaoUsuario.asp" -->
 <%
 Response.AddHeader "Content-Type", "text/html;charset=UTF-8"
