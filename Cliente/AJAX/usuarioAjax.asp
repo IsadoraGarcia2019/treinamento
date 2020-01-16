@@ -1,4 +1,4 @@
-<!-- #include file = "../conexao.asp" -->
+<!-- #include file = "conexao.asp" -->
 <!-- #include file = "../validacao.asp" -->
 <%
 Response.CodePage = 65001

@@ -1,4 +1,4 @@
-<!-- #include file = "../conexao.asp" -->
+<!-- #include file = "conexao.asp" -->
 <%
 dim tarStatus, tarID, tarTitulo
 

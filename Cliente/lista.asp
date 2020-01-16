@@ -1,11 +1,6 @@
-<!-- #include file = "Includes/header.asp" -->
-<!-- #include file = "../Servidor/conexao.asp" -->
+<!-- #include file = "AJAX/conexao.asp" -->
 <!-- #include file = "paginacaoTarefa.asp" -->
-<%  
-Response.AddHeader "Content-Type", "text/html;charset=UTF-8"
-Response.CodePage = 65001
-Response.CharSet = "UTF-8"
-
+<% 
 'AQUI CASO NAO ESTEJA LOGADO VAI PARA A PAGINA DE LOGIN
 if Session("usuario") <> "logado"  then
     response.Redirect("logon.asp")
@@ -14,13 +9,12 @@ end if
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" type="text/css" href="./css/reset-min.css">
+    <!-- #include file = "Includes/HTMLhead.inc" -->
     <link rel="stylesheet" type="text/css" href="./css/lista.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <meta charset="utf-8">
     <title>Lista de Tarefas</title>
 </head>
 <body>
+    <!-- #include file = "Includes/header.asp" -->
     <div class="box">
       <p>Tarefas</p>
       <a href="TarefaCadastro.asp">Nova Tarefa</a>
@@ -57,7 +51,7 @@ end if
 
             Response.write("<tr>")
             Response.write("<td>")
-            Response.write("<a href=""/treinamento/TarefaCadastro.asp?tarID=" & recordSet("tarID") &""">"&id&"</a>")
+            Response.write("<a href=""/treinamento/Cliente/TarefaCadastro.asp?tarID=" & recordSet("tarID") &""">"&id&"</a>")
             Response.write("</td>") 
             Response.write("<td ondblclick='edicaoTarefa(this, "&id&")' id='tar"&id&"' >")         
             Response.write(titulo)

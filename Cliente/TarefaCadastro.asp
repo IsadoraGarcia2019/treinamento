@@ -1,13 +1,8 @@
 <!-- #include file = "validacaoTarefa.asp" -->
-<!-- #include file = "../Servidor/conexao.asp" -->
+<!-- #include file = "AJAX/conexao.asp" -->
 <!-- #include file = "AJAX/tarefaAjax.asp" -->
 <%
-Response.AddHeader "Content-Type", "text/html;charset=UTF-8"
-Response.CodePage = 65001
-Response.CharSet = "UTF-8"
-
 dim selected
-
 'Recordsets
 dim rsGerador
 dim usuid
@@ -18,19 +13,15 @@ set rsGerador = cn.Execute("SELECT usuid, Usuario FROM Usuario")
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="./css/reset-min.css">
-    <link rel="stylesheet" type="text/css" href="./css/TarefaCadastro.css">    
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./jscripts/TarefaCadastro.js"/></script>
-
+    <!-- #include file = "Includes/HTMLhead.inc" -->
+    <link rel="stylesheet" type="text/css" href="./css/TarefaCadastro.css">
+    <script type="text/javascript" src="./jscripts/TarefaCadastro.js"/></script>    
     <title>Cadastro de Tarefas</title>
 </head>
 
 <body>
-    <form action="TarefaCadastro.asp" method="post" id="formularioTarefa">
-        <input type="hidden" id="tarID" name="tarID" value="<%=tarID%> ">
+    <form method="post" id="formularioTarefa">
+        <input type="hidden" id="tarID" name="tarID">
         <div class="box">
 
             <p>Tarefa</p>
@@ -41,12 +32,12 @@ set rsGerador = cn.Execute("SELECT usuid, Usuario FROM Usuario")
             <br />
 
             <label for="titulo">Título: </label>
-            <input type="text" id="tarTitulo" name="tarTitulo" value="<%=tarTitulo %>">
+            <input type="text" id="tarTitulo" name="tarTitulo">
 
             <br />
 
             <label for="geradorID">Gerador: </label>
-            <select name="geradorID" id="geradorID"  value="<%=geradorID %>">
+            <select name="geradorID" id="geradorID">
               <% 
 
 
@@ -69,7 +60,7 @@ set rsGerador = cn.Execute("SELECT usuid, Usuario FROM Usuario")
         <br />
 
         <label for="tarData">Data: </label>
-        <input type="datetime-local" id="tarData" name="tarData" min="1900-01-01T00:00:00" max="2100-12-31T23:59:59" value="<%=tarData%>">
+        <input type="datetime-local" id="tarData" name="tarData" min="1900-01-01T00:00:00" max="2100-12-31T23:59:59">
 
         <br />
 
@@ -89,12 +80,12 @@ set rsGerador = cn.Execute("SELECT usuid, Usuario FROM Usuario")
         <br />
 
         <div class="botoes">
-           <button class="button" onclick="CadastrarTarefa(event)" id="btnCadastrar">Cadastrar</button> 
-           <button class="button" onclick="AlterarTarefa(event)" id="btnAlterar" >Alterar</button>     
-           <button onclick="ExcluirTarefa(event)" class="button" id="btnExcluir" style="display: none !important;" >Excluir</button>    
-           <button  onclick="limparCampos()" class="button" id="btnNovo">Novo</button>  
-       </div>
-   </div>
+         <button class="button" onclick="CadastrarTarefa(event)" id="btnCadastrar">Cadastrar</button> 
+         <button class="button" onclick="AlterarTarefa(event)" id="btnAlterar" >Alterar</button>     
+         <button onclick="ExcluirTarefa(event)" class="button" id="btnExcluir" style="display: none !important;" >Excluir</button>    
+         <button  onclick="limparCampos()" class="button" id="btnNovo">Novo</button>  
+     </div>
+ </div>
 </form>
 </body>
 </html>

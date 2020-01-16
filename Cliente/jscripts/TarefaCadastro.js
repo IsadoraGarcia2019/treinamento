@@ -135,7 +135,7 @@ function ExcluirTarefa(event) {
                 success: function(){
                     document.getElementById("btnCadastrar").style.display = "none";
                     alert("Tarefa excluída com sucesso !!");
-                    location.href = "/treinamento/lista.asp";                             
+                    location.href = "/treinamento/Cliente/lista.asp";                             
                 }
             });
         }

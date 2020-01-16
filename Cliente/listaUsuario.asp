@@ -1,11 +1,6 @@
-<!-- #include file = "Includes/header.asp" -->
-<!-- #include file = "../Servidor/conexao.asp" -->
+<!-- #include file = "AJAX/conexao.asp" -->
 <!-- #include file = "paginacaoUsuario.asp" -->
 <%
-Response.AddHeader "Content-Type", "text/html;charset=UTF-8"
-Response.CodePage = 65001
-Response.CharSet = "UTF-8"
-
 'AQUI CASO NAO ESTEJA LOGADO VAI PARA A PAGINA DE LOGIN
 if Session("usuario") <> "logado"  then
     response.Redirect("logon.asp")
@@ -16,14 +11,13 @@ end if
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="./css/reset-min.css">
+
+    <!-- #include file = "Includes/HTMLhead.inc" -->
     <link rel="stylesheet" type="text/css" href="./css/listaUsuario.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Lista de Usuários</title>
 </head>
-
 <body>
+    <!-- #include file = "Includes/header.asp" -->
     <div class="box">
         <p>Usuário</p>
         <a href="usuarioCadastro.asp">Novo Usuário</a>

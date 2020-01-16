@@ -1,10 +1,6 @@
-<!-- #include file = "../Servidor/conexao.asp" -->
+<!-- #include file = "AJAX/conexao.asp" -->
 <!-- #include file = "AJAX/usuarioAjax.asp" -->
 <%
-Response.AddHeader "Content-Type", "text/html;charset=UTF-8"
-Response.CodePage = 65001
-Response.CharSet = "UTF-8"
-
 dim records
 
 'Recordsets
@@ -23,12 +19,11 @@ end if
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="./css/reset-min.css">
+    <!-- #include file = "Includes/HTMLhead.inc" -->    
     <link rel="stylesheet" type="text/css" href="./css/usuarioCadastro.css">
-    <title>Cadastro de Usuário</title>
-
     <script type="text/javascript" src="./jscripts/usuarioCadastro.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>Cadastro de Usuário</title>
 </head>
 <body>
     <form action="usuarioCadastro.asp" method="post" id="formularioUsuario">
@@ -54,14 +49,14 @@ end if
 
             <div class="campos">
 
-             <label for="endereco">Endereço: </label>
-             <input type="text" class="form-control" id="endereco" name="endereco" value="<%= endereco %>">
+               <label for="endereco">Endereço: </label>
+               <input type="text" class="form-control" id="endereco" name="endereco" value="<%= endereco %>">
 
-             <label for="cidade">Cidade: </label>
-             <input type="text" class="form-control" id="cidade" name="cidade" value="<%= cidade %>">
-         </div>
+               <label for="cidade">Cidade: </label>
+               <input type="text" class="form-control" id="cidade" name="cidade" value="<%= cidade %>">
+           </div>
 
-         <div class="campos">
+           <div class="campos">
 
             <label for="cep">Cep: </label>
             <input type="text" id="cep" name="cep" maxlength="8" value="<%= cep %>" />
@@ -90,17 +85,17 @@ end if
 
         <div class="botoes">
 
-           <button class="button" onclick="CadastrarUsuario(event)" id="btnCadastrar">Cadastrar</button>
-           <button class="button" onclick="AlterarUsuario(event)" id="btnAlterar" value="Alterar">Alterar</button>
-           <%if usuid <> geradorID then%>
-           <button class="btnExcluir" onclick="ExcluirUsuario(event)" style="display: none;" id="btnExcluir">Excluir</button> 
-           <%end if%>  
-           <%if usuid = geradorID then%>
-           <button class="btnExcluir" onclick="ExclusaoGerador(event)" style="display: none;" id="btnExcluir">Excluir</button>   
-           <%end if%>  
-           <button onclick="limparCampos()" class="button" name="acao" id="btnNovo">Novo</button>              
-       </div>
-   </div>
+         <button class="button" onclick="CadastrarUsuario(event)" id="btnCadastrar">Cadastrar</button>
+         <button class="button" onclick="AlterarUsuario(event)" id="btnAlterar" value="Alterar">Alterar</button>
+         <%if usuid <> geradorID then%>
+         <button class="btnExcluir" onclick="ExcluirUsuario(event)" style="display: none;" id="btnExcluir">Excluir</button> 
+         <%end if%>  
+         <%if usuid = geradorID then%>
+         <button class="btnExcluir" onclick="ExclusaoGerador(event)" style="display: none;" id="btnExcluir">Excluir</button>   
+         <%end if%>  
+         <button onclick="limparCampos()" class="button" name="acao" id="btnNovo">Novo</button>              
+     </div>
+ </div>
 </form>
 </body>
 </html>  

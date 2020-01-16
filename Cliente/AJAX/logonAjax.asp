@@ -1,11 +1,10 @@
-<!-- #include file = "../conexao.asp" -->
+<!-- #include file = "conexao.asp" -->
 <%
 if (Request("fnTarget") <> "") then
 	Execute(Request("fnTarget") & "()")
 end if
 
 function ValidaLogin()
-
 	login=Request("usuario")
 	senha=Request("senha")
 

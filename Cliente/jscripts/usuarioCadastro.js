@@ -103,7 +103,7 @@ function AlterarUsuario(event) {
         },
         success: function(){
             alert("Usuário alterado com sucesso !!");
-            location.href = "/treinamento/listaUsuario.asp";
+            location.href = "/treinamento/Cliente/listaUsuario.asp";
         }
     });
 }
@@ -141,7 +141,7 @@ function ExcluirUsuario(event) {
                 },
                 success: function(){
                     alert("Usuário excluído com sucesso !!");
-                    location.href = "/treinamento/listaUsuario.asp";
+                    location.href = "/treinamento/Cliente/listaUsuario.asp";
                 }
             });            
         }

@@ -13,7 +13,7 @@ function verificarURL(event) {
     }
 
     $.ajax({
-        url: "AJAX/select.asp",
+        url: "AJAX/logonAjax.asp",
         type: 'POST',
         async: false,
         data: {
@@ -23,7 +23,7 @@ function verificarURL(event) {
         },
         success: function(retorno) {
             if (retorno == 'true') {
-                window.location.href = "listaUsuario.asp";
+                window.location.href = "Cliente/listaUsuario.asp";
             } else {
 
                 mostraAlerta("Usuario e/ou senha incorretos!")
