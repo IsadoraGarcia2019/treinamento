@@ -1,4 +1,3 @@
-<!-- #include file = "AJAX/conexao.asp" -->
 <!-- #include file = "paginacaoTarefa.asp" -->
 <% 
 'AQUI CASO NAO ESTEJA LOGADO VAI PARA A PAGINA DE LOGIN

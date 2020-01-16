@@ -3,11 +3,15 @@ window.addEventListener('load', function(e) {
 });
 
 function carregarUsuario(){
-    var id = document.getElementById("usuid").value;
+    debugger
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get("usuid");
     if (id != 0) {
 
         $.ajax({
-            url: "AJAX/usuarioAjax.asp",
+            url: "../Servidor/Controllers/usuarioAjax.asp",
             type: 'POST',
             async:false,
             data: {
@@ -53,7 +57,7 @@ function CadastrarUsuario(event){
     var estadoid = document.getElementById("estadoid").value;
 
     $.ajax({
-        url: "AJAX/usuarioAjax.asp",
+        url: "../Servidor/Controllers/usuarioAjax.asp",
         type: 'POST',
         async:false,
         data: {
@@ -87,7 +91,7 @@ function AlterarUsuario(event) {
     var estadoid = document.getElementById("estadoid").value;
 
     $.ajax({
-        url:"AJAX/usuarioAjax.asp",
+        url:"../Servidor/Controllers/usuarioAjax.asp",
         type:'POST',
         async:false,
         data: {
@@ -125,7 +129,7 @@ function ExcluirUsuario(event) {
         if (usuid != '') {
 
             $.ajax({
-                url:"AJAX/usuarioAjax.asp",
+                url:"../Servidor/Controllers/usuarioAjax.asp",
                 type:'POST',
                 async:false,
                 data: {

@@ -1,4 +1,4 @@
-<!-- #include file = "conexao.asp" -->
+<!-- #include file = "../Servidor/Models/conexao.class.asp" -->
 <%
 if (Request("fnTarget") <> "") then
 	Execute(Request("fnTarget") & "()")

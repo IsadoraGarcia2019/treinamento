@@ -1,6 +1,4 @@
-<!-- #include file = "validacaoTarefa.asp" -->
-<!-- #include file = "AJAX/conexao.asp" -->
-<!-- #include file = "AJAX/tarefaAjax.asp" -->
+<!-- #include file = "../Servidor/Controllers/tarefaAjax.asp" -->
 <%
 dim selected
 'Recordsets

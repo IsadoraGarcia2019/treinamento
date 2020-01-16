@@ -1,5 +1,5 @@
-<!-- #include file = "conexao.asp" -->
-<!-- #include file = "../validacao.asp" -->
+<!-- #include file = "../Models/conexao.class.asp" -->
+<!-- #include file = "../Models/usuario.class.asp" -->
 <%
 Response.CodePage = 65001
 Response.CharSet = "UTF-8"
@@ -20,16 +20,19 @@ if (Request("fnTarget") <> "") then
 	Execute(Request("fnTarget").item & "()")
 end if
 
-function CadastrarUsuario() 
+function CadastrarUsuario(usuario,senha,nome,endereco,cidade,cep,estadoid) 
 
 	if validaNome(usuario,senha,nome,endereco,cidade,cep,estadoid) then
-		cn.execute("INSERT INTO usuario (usuario,senha,nome,endereco,cidade,cep,estadoid) VALUES ('" & usuario & "','" & senha & "','" & nome & "','" & endereco & "','" & cidade & "','" & cep & "','" & estadoid & "')")
+		stop
+		set ObjUsuario = new usuario
+		set ObjUsuario.setUsuario  = usuario		
+		set ObjUsuario.setSenha  = senha		
+		set ObjUsuario.setNome  = nome		
+		set ObjUsuario.setEndereco  = endereco
+		set ObjUsuario.setCidade  = cidade
+		set ObjUsuario.setCep  = cep
+		set ObjUsuario.setEstadoid  = estadoid
 
-		set rs = cn.execute("select TOP 1 usuid FROM usuario ORDER BY usuid DESC")     
-		if not rs.eof then
-			usuid = rs("usuid")
-			Response.write("true")
-		end if
 	end if
 
 end function  
@@ -48,11 +51,15 @@ function ExcluirUsuario()
 
 end function
 
-function carregarUsuario()
+function carregarUsuario(usuid)
+	stop
 
 	if usuid > 0 then 
 
-		set rs = cn.Execute("SELECT usuario, senha, nome, endereco, cidade, cep, estadoid FROM usuario WHERE usuid = " & usuid)
+		set ObjConexao = new Conexao
+		set cn = ObjConexao.AbreConexao()
+		set ObjUsuario = new usuario
+		set rs = ObjUsuario.BuscarUsuarioPorID(cn,usuid)
 
 		if not rs.eof then
 			Response.ContentType = "application/json"

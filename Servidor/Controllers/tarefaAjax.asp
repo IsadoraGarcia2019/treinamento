@@ -1,5 +1,5 @@
-<!-- #include file = "conexao.asp" -->
-<!-- #include file = "../validacaoTarefa.asp" -->
+<!-- #include file = "../Servidor/Models/conexao.class.asp" -->
+<!-- #include file = "../Cliente/validacaoTarefa.asp" -->
 <%
 Response.CodePage = 65001
 Response.CharSet = "UTF-8"
