@@ -51,7 +51,7 @@ Class Conexao
         '   - Usuario
         '   - Senha 
         '
-        dim DataSource : DataSource= "localhost"
+        dim DataSource : DataSource= "ES208"
         dim DataBase : DataBase = "treinamento"
         dim Usuario : Usuario = "sa"
         dim Senha : Senha = "sa123456"

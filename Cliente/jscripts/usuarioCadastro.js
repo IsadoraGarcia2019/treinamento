@@ -1,14 +1,14 @@
 window.addEventListener('load', function(e) {
     carregarUsuario();
+    BuscarEstados();
 });
 
 function carregarUsuario(){
-    debugger
     const queryString = window.location.search;
     console.log(queryString);
     const urlParams = new URLSearchParams(queryString);
     var id = urlParams.get("usuid");
-    if (id != 0) {
+    if (id != 0 && id != null) {
 
         $.ajax({
             url: "../Servidor/Controllers/usuarioAjax.asp",
@@ -30,8 +30,40 @@ function carregarUsuario(){
 
                 document.getElementById("btnCadastrar").style.display = "none";
                 document.getElementById("btnExcluir").style.display = "inline";                
+            },
+            error: function(erro){
+                alert("Carregar" + erro);   
             }
         });
+    }
+}
+
+function BuscarEstados() {
+
+    $.ajax({
+        url: "../Servidor/Controllers/usuarioAjax.asp",
+        type: 'POST',
+        async:false,
+        data: {
+            "fnTarget": "BuscarEstados"
+        },
+        success: function(data){
+            var estadoid =  document.getElementById("estadoid");
+            preencheOptions(estadoid, data);
+        },
+        error: function(erro){
+            alert("Estado" + erro);   
+        }
+    });
+}
+
+function preencheOptions(estadoid, data) {
+    var estados = data.Estados;
+    for (var i = 0; i < estados.length; i++) {
+        var opt = document.createElement('option');
+        opt.innerHTML = estados[i]['nome'];
+        opt.value = estados[i]['estadoid'];
+        estadoid.appendChild(opt);
     }
 }
 
@@ -70,7 +102,8 @@ function CadastrarUsuario(event){
             "cidade": cidade,
             "estadoid": estadoid
         },
-        success: function(){
+        success: function(data){
+            alert (data.mensagem)
             document.getElementById("btnCadastrar").style.display = "none";
             document.getElementById("btnExcluir").style.display = "inline";
         },
@@ -80,98 +113,69 @@ function CadastrarUsuario(event){
 }
 
 function AlterarUsuario(event) {
+    debugger
     event.preventDefault();
-    var usuid = document.getElementById('usuid').value;
-    var usuario = document.getElementById("usuario").value;
-    var senha = document.getElementById("senha").value;
-    var nome = document.getElementById("nome").value;
-    var endereco = document.getElementById("endereco").value;
-    var cidade = document.getElementById("cidade").value;
-    var cep = document.getElementById("cep").value;
-    var estadoid = document.getElementById("estadoid").value;
 
-    $.ajax({
-        url:"../Servidor/Controllers/usuarioAjax.asp",
-        type:'POST',
-        async:false,
-        data: {
-            "fnTarget": "AlterarUsuario",
-            "usuid": usuid,
-            "usuario": usuario,
-            "senha": senha,
-            "nome": nome,
-            "endereco": endereco,
-            "cep": cep,
-            "cidade": cidade,
-            "estadoid": estadoid
-        },
-        success: function(){
-            alert("Usuário alterado com sucesso !!");
-            location.href = "/treinamento/Cliente/listaUsuario.asp";
-        }
-    });
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get("usuid");
+    if (id != 0 && id != null) {
+
+        var usuario = document.getElementById("usuario").value;
+        var senha = document.getElementById("senha").value;
+        var nome = document.getElementById("nome").value;
+        var endereco = document.getElementById("endereco").value;
+        var cidade = document.getElementById("cidade").value;
+        var cep = document.getElementById("cep").value;
+        var estadoid = document.getElementById("estadoid").value;
+
+        $.ajax({
+            url:"../Servidor/Controllers/usuarioAjax.asp",
+            type:'POST',
+            async:false,
+            data: {
+                "fnTarget": "AlterarUsuario",
+                "usuid": id,
+                "usuario": usuario,
+                "senha": senha,
+                "nome": nome,
+                "endereco": endereco,
+                "cep": cep,
+                "cidade": cidade,
+                "estadoid": estadoid
+            },
+            success: function(){
+                alert("Usuário alterado com sucesso !!");
+                location.href = "/treinamento/Cliente/listaUsuario.asp";
+            }
+        });
+    }
 }
 
 function ExcluirUsuario(event) {
+    debugger
     event.preventDefault();
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get("usuid");
+    if (id != 0 && id != null) {
 
-    var usuid = document.getElementById('usuid').value;
-    var usuario = document.getElementById("usuario").value;
-    var senha = document.getElementById("senha").value;
-    var nome = document.getElementById("nome").value;
-    var endereco = document.getElementById("endereco").value;
-    var cidade = document.getElementById("cidade").value;
-    var cep = document.getElementById("cep").value;
-    var estadoid = document.getElementById("estadoid").value;
-
-    if (confirm("Tem certeza que deseja excluir seus dados?")) {
-        var usuid = document.getElementById('usuid').value;
-        if (usuid != '') {
-
-            $.ajax({
+        if (confirm("Tem certeza que deseja excluir seus dados?")) {
+           $.ajax({
                 url:"../Servidor/Controllers/usuarioAjax.asp",
                 type:'POST',
                 async:false,
                 data: {
                     "fnTarget": "ExcluirUsuario",
-                    "usuid": usuid,
-                    "usuario": usuario,
-                    "senha": senha,
-                    "nome": nome,
-                    "endereco": endereco,
-                    "cep": cep,
-                    "cidade": cidade,
-                    "estadoid": estadoid
+                    "usuid": id
                 },
-                success: function(){
-                    alert("Usuário excluído com sucesso !!");
+                success: function(data){
+                    alert(data.mensagem);
                     location.href = "/treinamento/Cliente/listaUsuario.asp";
                 }
-            });            
+            });          
         }
     }
 }
-
-function ExclusaoGerador(event) {
-    event.preventDefault();
-    alert('Esse usuário não pode ser excluído pois é um gerador de tarefa !!');
-}
-
-// function adicionarEventos() {
-
-//     const inputValue = document.getElementById("cep");
-//     inputValue.addEventListener("keyup", (e) => {
-//         debugger;
-//         mascaraCEP(e)
-//     });
-// }
-
-// function mascaraCEP(e) {
-//     zipCode = e.currentTarget.value;
-//     if (zipCode){
-//         if (zipCode.length === 8) {
-//             document.getElementById("cep").value = `${zipCode.substr(0,2)}.${zipCode.substr(2,3)}-${zipCode.substr(5,3)}`;
-//             console.log(zipCode);
-//         }
-//     }
-// }

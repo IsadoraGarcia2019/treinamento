@@ -4,12 +4,11 @@
     <!-- #include file = "Includes/HTMLhead.inc" -->    
     <link rel="stylesheet" type="text/css" href="./css/usuarioCadastro.css">
     <script type="text/javascript" src="./jscripts/usuarioCadastro.js"></script>
-
+    
     <title>Cadastro de Usuário</title>
 </head>
 <body>
-    <form action="usuarioCadastro.asp" method="post" id="formularioUsuario">
-        <input type="hidden" id="usuid" name="usuid">
+    <form action="usuarioCadastro.asp" method="post" id="formularioUsuario"> 
         <div class="box">
 
             <p>Usuário</p>
@@ -44,7 +43,7 @@
             <input type="text" id="cep" name="cep" maxlength="8">
 
             <label for="estadoid">Estado: </label>
-            <select name="estadoid" id="estadoid">
+            <select name="estadoid" id="estadoid">                
             </select>
         </div>
 
@@ -52,10 +51,9 @@
          <button class="button" onclick="CadastrarUsuario(event)" id="btnCadastrar">Cadastrar</button>
          <button class="button" onclick="AlterarUsuario(event)" id="btnAlterar" value="Alterar">Alterar</button>
          <button class="btnExcluir" onclick="ExcluirUsuario(event)" style="display: none;" id="btnExcluir">Excluir</button> 
-         <button class="btnExcluir" onclick="ExclusaoGerador(event)" style="display: none;" id="btnExcluir">Excluir</button>   
          <button onclick="limparCampos()" class="button" name="acao" id="btnNovo">Novo</button>              
      </div>
  </div>
 </form>
 </body>
-</html>  
+</html>

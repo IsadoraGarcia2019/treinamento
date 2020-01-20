@@ -1,6 +1,6 @@
 function verificarURL(event) {
+    debugger
     event.preventDefault();
-
     var usuario = document.getElementById("usuario")
     var senha = document.getElementById("senha")
 
@@ -13,7 +13,7 @@ function verificarURL(event) {
     }
 
     $.ajax({
-        url: "AJAX/logonAjax.asp",
+        url: "../Servidor/Controllers/logonAjax.asp",
         type: 'POST',
         async: false,
         data: {
@@ -23,7 +23,7 @@ function verificarURL(event) {
         },
         success: function(retorno) {
             if (retorno == 'true') {
-                window.location.href = "Cliente/listaUsuario.asp";
+                window.location.href = "./listaUsuario.asp";
             } else {
 
                 mostraAlerta("Usuario e/ou senha incorretos!")

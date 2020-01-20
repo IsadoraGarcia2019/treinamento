@@ -10,7 +10,7 @@ Class cUsuario
     Private Endereco
     Private Cidade
     Private Cep
-    Private Estadoid
+    Private estadoid
     '
     ' Métodos Get e Set de cada propriedade
     '
@@ -53,59 +53,77 @@ Class cUsuario
         Cidade = p_cidade
     End sub
     Public function getCep()
-        getCep = Cidade
+        getCep = Cep
     End function
     Public sub setCep(byval p_cep)
         Cep = p_cep
     End sub
     
-    Public function getEstadoid()
-        getIdEstado = Estadoid
+    Public function getIdEstado()
+        getIdEstado = estadoid
     End function
     Public sub setIdEstado(byval p_IdEstado)
-        Estadoid = p_Estadoid
+        estadoid = p_IdEstado
     End sub
     '
     ' Métodos complementares
     '
 
     'Inserção de usuários
-    public function CadastrarUsuario()
-        '
-        ' TODO Lógica de inserção de usuários novos
-        '
-        cn.execute("INSERT INTO usuario (usuario,senha,nome,endereco,cidade,cep,estadoid) VALUES ('" & usuario & "','" & senha & "','" & nome & "','" & endereco & "','" & cidade & "','" & cep & "','" & estadoid & "')")
+    public function CadastrarUsuario(cn, ObjUsuario)
+        cn.execute("INSERT INTO usuario (usuario,senha,nome,endereco,cidade,cep,estadoid) VALUES ('" & objUsuario.getUsuario() & "','" & objUsuario.getSenha() & "','" & objUsuario.getNome() & "','" & objUsuario.getEndereco() & "','" & objUsuario.getCidade() & "','" & objUsuario.getCep() & "','" & objUsuario.getIdEstado() & "')")
 
         set rs = cn.execute("select TOP 1 usuid FROM usuario ORDER BY usuid DESC")   
 
         if not rs.eof then
             usuid = rs("usuid")
         end if
+        set CadastrarUsuario  = rs
     end function
+
     'Update de usuários
-    public function UpadateUsuario(Id)
+    public function AlterarUsuario(cn, ObjUsuario)
         '
         ' TODO Lógica de update de usuários
         '
-        set UpadateUsuario = rs
+        set rs = cn.execute("UPDATE usuario SET usuario = '" & objUsuario.getUsuario() & "', senha = '" & objUsuario.getSenha() & "', nome = '" & objUsuario.getNome() & "', endereco = '" & objUsuario.getEndereco() & "', cidade = '" & objUsuario.getCidade() & "', cep = '" & objUsuario.getCep() & "', estadoid = '" & objUsuario.getIdEstado() & "' WHERE usuid =" & usuid)
+
+        set AlterarUsuario = rs
+    end function
+
+    public function ExcluirUsuario(cn, usuid)
+
+        set rs = cn.execute("DELETE FROM usuario WHERE usuid = " & usuid)
+
+        set ExcluirUsuario = rs
     end function
     'Buscar usuários
     public function BuscarUsuarios(cn)
         '
         ' TODO Lógica para busca de usuários
         '
-        stop
         sql = "SELECT [nome],[usuario],[endereco],[cidade],[cep],[usuid] FROM [treinamento].[dbo].[usuario]"
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001
         set BuscarUsuarios = rs
+    end function 
+
+    'Buscar estados
+    public function BuscarEstados(cn)
+        '
+        ' TODO Lógica para busca de estados
+        '
+        sql = "SELECT [estadoid],[nome] FROM [treinamento].[dbo].[estado]"
+        Set rs=Server.CreateObject("ADODB.recordset")
+        rs.Open sql, cn, &H0001
+        set BuscarEstados = rs
     end function
+
     'Buscar um usuário
     public function BuscarUsuarioPorNomeSenha(cn,usuario,senha)
         '
         ' TODO Lógica para busca de usuários
         '
-        stop
         sql = "SELECT * FROM [treinamento].[dbo].[usuario] where usuario='" & usuario & "' and senha='" & senha & "'" 
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001
@@ -127,7 +145,6 @@ Class cUsuario
         set BuscarUsuarioPorID = rs              
         
     end function
-
     function validaNome(usuario,senha,nome,endereco,cidade,cep,estadoid)
 
         dim resultado: resultado = true

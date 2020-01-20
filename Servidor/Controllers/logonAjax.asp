@@ -1,10 +1,16 @@
-<!-- #include file = "../Servidor/Models/conexao.class.asp" -->
+<!-- #include file = "../Models/conexao.class.asp" -->
 <%
+dim cn, rs
+
 if (Request("fnTarget") <> "") then
 	Execute(Request("fnTarget") & "()")
 end if
 
 function ValidaLogin()
+	
+	stop
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
 	login=Request("usuario")
 	senha=Request("senha")
 
@@ -14,8 +20,8 @@ function ValidaLogin()
 		Session("usuario") = "logado"
 		response.write "true"
 	else
-		response.write "false"
-	end if
+	response.write "false"
+end if
 end function
 
 %>
