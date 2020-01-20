@@ -37,6 +37,8 @@ function CadastrarUsuario()
 
 		r = ObjUsuario.CadastrarUsuario(cn, ObjUsuario)
 	end if
+	rs.Close()
+	ObjConexao.FecharConexao(cn)
 end function  
 
 function AlterarUsuario()
@@ -56,6 +58,8 @@ function AlterarUsuario()
 		r = ObjUsuario.AlterarUsuario(cn, ObjUsuario)
 		mensagem = "Usuario cadastrado com sucesso"		
 	end if
+	rs.Close()
+	ObjConexao.FecharConexao(cn)
 end function      
 
 function ExcluirUsuario()
@@ -77,6 +81,8 @@ function ExcluirUsuario()
 	response.write "{"
 	response.write 		"""mensagem"": """ & mensagem & """"
 	response.write "}"
+	rs.Close()
+	ObjConexao.FecharConexao(cn)
 end function
 
 function carregarUsuario()
@@ -100,6 +106,8 @@ function carregarUsuario()
 			response.write "}"
 		end if
 	End if	
+	rs.Close()
+	ObjConexao.FecharConexao(cn)
 end function
 
 function BuscarEstados()
@@ -125,6 +133,7 @@ function BuscarEstados()
 	end if
 	response.write "]"
 	response.write "}"
+	rs.Close()
 	ObjConexao.FecharConexao(cn)
 end function
 

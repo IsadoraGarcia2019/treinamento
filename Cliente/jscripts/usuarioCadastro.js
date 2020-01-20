@@ -2,6 +2,10 @@ window.addEventListener('load', function(e) {
     carregarUsuario();
     BuscarEstados();
 });
+function adicionarEventos(){
+
+    
+}
 
 function carregarUsuario(){
     const queryString = window.location.search;
