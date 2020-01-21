@@ -1,17 +1,38 @@
 window.addEventListener('load', function(e) {
     carregarUsuario();
+    adicionarEventos();
     BuscarEstados();
-});
-function adicionarEventos(){
 
-    
+});
+
+function adicionarEventos(){
+    var estadoid = document.getElementById("estadoid");
+    var btnCadastrar = document.getElementById("btnCadastrar");
+    var btnNovo = document.getElementById("btnNovo");
+    var btnExcluir = document.getElementById("btnExcluir");
+    var btnNovo = document.getElementById("btnNovo");
+
+    estadoid.addEventListener("click", function () {
+        BuscarEstados();
+    });
+    btnCadastrar.addEventListener("click", function (e) {
+        CadastrarUsuario(e);
+    });
+
+    btnAlterar.addEventListener("click", function (e) {
+        AlterarUsuario(e);
+    });
+    btnExcluir.addEventListener("click", function (e) {
+        ExcluirUsuario(e);
+    });btnNovo.addEventListener("click", function (e) {
+        limparCampos(e);
+    });
 }
 
-function carregarUsuario(){
-    const queryString = window.location.search;
-    console.log(queryString);
-    const urlParams = new URLSearchParams(queryString);
-    var id = urlParams.get("usuid");
+function carregarUsuario(){    
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get('usuid');
     if (id != 0 && id != null) {
 
         $.ajax({
@@ -43,6 +64,9 @@ function carregarUsuario(){
 }
 
 function BuscarEstados() {
+    if (!estadoid) {
+        return false;
+    }
 
     $.ajax({
         url: "../Servidor/Controllers/usuarioAjax.asp",
@@ -82,8 +106,8 @@ function limparCampos() {
     document.getElementById("estadoid").value = "";
 }
 
-function CadastrarUsuario(event){
-    event.preventDefault();
+function CadastrarUsuario(e){
+    e.preventDefault();
     var usuario = document.getElementById("usuario").value;
     var senha = document.getElementById("senha").value;
     var nome = document.getElementById("nome").value;
@@ -111,19 +135,17 @@ function CadastrarUsuario(event){
             document.getElementById("btnCadastrar").style.display = "none";
             document.getElementById("btnExcluir").style.display = "inline";
         },
-        error: function(){
+        error: function(xhr, status, error){
+            alert("Erro:" + xhr + status + error);
         }
     });
 }
 
-function AlterarUsuario(event) {
-    debugger
-    event.preventDefault();
-
-    const queryString = window.location.search;
-    console.log(queryString);
-    const urlParams = new URLSearchParams(queryString);
-    var id = urlParams.get("usuid");
+function AlterarUsuario(e) {
+    e.preventDefault();
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get('usuid');
     if (id != 0 && id != null) {
 
         var usuario = document.getElementById("usuario").value;
@@ -157,29 +179,27 @@ function AlterarUsuario(event) {
     }
 }
 
-function ExcluirUsuario(event) {
-    debugger
-    event.preventDefault();
-    const queryString = window.location.search;
-    console.log(queryString);
-    const urlParams = new URLSearchParams(queryString);
-    var id = urlParams.get("usuid");
+function ExcluirUsuario(e) {
+    e.preventDefault();
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get('usuid');
     if (id != 0 && id != null) {
 
         if (confirm("Tem certeza que deseja excluir seus dados?")) {
-           $.ajax({
-                url:"../Servidor/Controllers/usuarioAjax.asp",
-                type:'POST',
-                async:false,
-                data: {
-                    "fnTarget": "ExcluirUsuario",
-                    "usuid": id
-                },
-                success: function(data){
-                    alert(data.mensagem);
-                    location.href = "/treinamento/Cliente/listaUsuario.asp";
-                }
-            });          
-        }
-    }
+         $.ajax({
+            url:"../Servidor/Controllers/usuarioAjax.asp",
+            type:'POST',
+            async:false,
+            data: {
+                "fnTarget": "ExcluirUsuario",
+                "usuid": id
+            },
+            success: function(data){
+                alert(data.mensagem);
+                location.href = "/treinamento/Cliente/listaUsuario.asp";
+            }
+        });          
+     }
+ }
 }

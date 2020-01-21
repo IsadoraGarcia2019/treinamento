@@ -36,6 +36,7 @@ function CadastrarUsuario()
 		ObjUsuario.setIdEstado(estadoid)
 
 		r = ObjUsuario.CadastrarUsuario(cn, ObjUsuario)
+		mensagem = "Usuario cadastrado com sucesso"	
 	end if
 	rs.Close()
 	ObjConexao.FecharConexao(cn)
@@ -44,8 +45,10 @@ end function
 function AlterarUsuario()
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
+	set ObjUsuario = new cUsuario
 
 	if usuid > 0 then
+		ObjUsuario.setId(usuid)
 		ObjUsuario.setUsuario(usuario)
 		ObjUsuario.setSenha(senha)		
 		ObjUsuario.setNome(nome)
@@ -54,12 +57,11 @@ function AlterarUsuario()
 		ObjUsuario.setCep(cep)
 		ObjUsuario.setIdEstado(estadoid)
 
-		set ObjUsuario = new cUsuario
-		r = ObjUsuario.AlterarUsuario(cn, ObjUsuario)
-		mensagem = "Usuario cadastrado com sucesso"		
-	end if
-	rs.Close()
-	ObjConexao.FecharConexao(cn)
+		r = ObjUsuario.AlterarUsuario(cn, ObjUsuario)	
+		mensagem = "Usuario alterado com sucesso"	
+	' rs.Close()
+	cn.close
+end if
 end function      
 
 function ExcluirUsuario()
@@ -74,15 +76,15 @@ function ExcluirUsuario()
 		r = ObjUsuario.ExcluirUsuario(cn, usuid)
 		mensagem = "Usuario excluido com sucesso"
 	else
-		m = rs.RecordCount
-		mensagem  = "Nao foi possivel excluir esse usuario pois ele e gerador de "& m &" tarefas!!"
-	end if	
-	Response.ContentType = "application/json"
-	response.write "{"
-	response.write 		"""mensagem"": """ & mensagem & """"
-	response.write "}"
-	rs.Close()
-	ObjConexao.FecharConexao(cn)
+	m = rs.RecordCount
+	mensagem  = "Nao foi possivel excluir esse usuario pois ele e gerador de "& m &" tarefas!!"
+end if	
+Response.ContentType = "application/json"
+response.write "{"
+response.write 		"""mensagem"": """ & mensagem & """"
+response.write "}"
+	' rs.Close()
+	cn.close
 end function
 
 function carregarUsuario()
@@ -106,8 +108,8 @@ function carregarUsuario()
 			response.write "}"
 		end if
 	End if	
-	rs.Close()
-	ObjConexao.FecharConexao(cn)
+	' rs.Close()
+	cn.close
 end function
 
 function BuscarEstados()
@@ -133,8 +135,8 @@ function BuscarEstados()
 	end if
 	response.write "]"
 	response.write "}"
-	rs.Close()
-	ObjConexao.FecharConexao(cn)
+	' rs.Close()
+	cn.close
 end function
 
 %>

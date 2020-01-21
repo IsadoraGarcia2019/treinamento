@@ -3,60 +3,60 @@ Class cUsuario
     '
     ' Propriedades da classe
     '
-    Private Id
-    Private Usuario
-    Private Senha
-    Private Nome
-    Private Endereco
-    Private Cidade
-    Private Cep
+    Private usuid
+    Private usuario
+    Private senha
+    Private nome
+    Private endereco
+    Private cidade
+    Private cep
     Private estadoid
     '
     ' Métodos Get e Set de cada propriedade
     '
     Public function getId()
-        getId = Id
+        getId = usuid
     End function
     Public sub setId(byval p_id)
-        Id = p_id
+        usuid = p_id
     End sub	
     Public function getUsuario()
-        getUsuario = Usuario
+        getUsuario = usuario
     End function
     Public sub setUsuario(byval p_usuario)
-        Usuario = p_usuario
+        usuario = p_usuario
     End sub
 
     Public function getSenha()
-        getSenha = Senha
+        getSenha = senha
     End function
     Public sub setSenha(byval p_senha)
-        Senha = p_senha
+        senha = p_senha
     End sub
     Public function getNome()
-        getNome = Nome
+        getNome = nome
     End function
     Public sub setNome(byval p_nome)
-        Nome = p_nome
+        nome = p_nome
     End sub
 
     Public function getEndereco()
-        getEndereco = Endereco
+        getEndereco = endereco
     End function
     Public sub setEndereco(byval p_endereco)
-        Endereco = p_endereco
+        endereco = p_endereco
     End sub
     Public function getCidade()
-        getCidade = Cidade
+        getCidade = cidade
     End function
     Public sub setCidade(byval p_cidade)
-        Cidade = p_cidade
+        cidade = p_cidade
     End sub
     Public function getCep()
-        getCep = Cep
+        getCep = cep
     End function
     Public sub setCep(byval p_cep)
-        Cep = p_cep
+        cep = p_cep
     End sub
     
     Public function getIdEstado()
@@ -71,7 +71,7 @@ Class cUsuario
 
     'Inserção de usuários
     public function CadastrarUsuario(cn, ObjUsuario)
-        cn.execute("INSERT INTO usuario (usuario,senha,nome,endereco,cidade,cep,estadoid) VALUES ('" & objUsuario.getUsuario() & "','" & objUsuario.getSenha() & "','" & objUsuario.getNome() & "','" & objUsuario.getEndereco() & "','" & objUsuario.getCidade() & "','" & objUsuario.getCep() & "','" & objUsuario.getIdEstado() & "')")
+        cn.execute("INSERT INTO usuario (usuario,senha,nome,endereco,cidade,cep,estadoid) VALUES ('" & ObjUsuario.getUsuario() & "','" & ObjUsuario.getSenha() & "','" & ObjUsuario.getNome() & "','" & ObjUsuario.getEndereco() & "','" & ObjUsuario.getCidade() & "','" & ObjUsuario.getCep() & "','" & ObjUsuario.getIdEstado() & "')")
 
         set rs = cn.execute("select TOP 1 usuid FROM usuario ORDER BY usuid DESC")   
 
@@ -86,7 +86,7 @@ Class cUsuario
         '
         ' TODO Lógica de update de usuários
         '
-        set rs = cn.execute("UPDATE usuario SET usuario = '" & objUsuario.getUsuario() & "', senha = '" & objUsuario.getSenha() & "', nome = '" & objUsuario.getNome() & "', endereco = '" & objUsuario.getEndereco() & "', cidade = '" & objUsuario.getCidade() & "', cep = '" & objUsuario.getCep() & "', estadoid = '" & objUsuario.getIdEstado() & "' WHERE usuid =" & usuid)
+        set rs = cn.execute("UPDATE usuario SET usuario = '" & ObjUsuario.getUsuario() & "', senha = '" & ObjUsuario.getSenha() & "', nome = '" & ObjUsuario.getNome() & "', endereco = '" & ObjUsuario.getEndereco() & "', cidade = '" & ObjUsuario.getCidade() & "', cep = '" & ObjUsuario.getCep() & "', estadoid = '" & ObjUsuario.getIdEstado() & "' WHERE usuid =" & ObjUsuario.getId())
 
         set AlterarUsuario = rs
     end function

@@ -8,7 +8,6 @@ end if
 
 function ValidaLogin()
 	
-	stop
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	login=Request("usuario")

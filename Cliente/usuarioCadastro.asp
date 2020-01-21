@@ -39,21 +39,21 @@
 
            <div class="campos">
 
-            <label for="cep">Cep: </label>
-            <input type="text" id="cep" name="cep" maxlength="8">
+                <label for="cep">Cep: </label>
+                <input type="text" id="cep" name="cep" maxlength="8">
 
-            <label for="estadoid">Estado: </label>
-            <select name="estadoid" id="estadoid">                
-            </select>
+                <label for="estadoid">Estado: </label>
+                <select name="estadoid" id="estadoid">                
+                </select>
+            </div>
+
+            <div class="botoes">
+                <button class="button" id="btnCadastrar">Cadastrar</button>
+                <button class="button" id="btnAlterar">Alterar</button>
+                <button class="btnExcluir" style="display: none;" id="btnExcluir">Excluir</button> 
+                <button class="button" name="acao" id="btnNovo">Novo</button>              
+            </div>
         </div>
-
-        <div class="botoes">
-         <button class="button" onclick="CadastrarUsuario(event)" id="btnCadastrar">Cadastrar</button>
-         <button class="button" onclick="AlterarUsuario(event)" id="btnAlterar" value="Alterar">Alterar</button>
-         <button class="btnExcluir" onclick="ExcluirUsuario(event)" style="display: none;" id="btnExcluir">Excluir</button> 
-         <button onclick="limparCampos()" class="button" name="acao" id="btnNovo">Novo</button>              
-     </div>
- </div>
-</form>
+    </form>
 </body>
 </html>
