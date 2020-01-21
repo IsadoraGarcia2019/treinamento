@@ -38,8 +38,8 @@ function CadastrarUsuario()
 		r = ObjUsuario.CadastrarUsuario(cn, ObjUsuario)
 		mensagem = "Usuario cadastrado com sucesso"	
 	end if
-	rs.Close()
-	ObjConexao.FecharConexao(cn)
+	' rs.Close()
+	cn.close
 end function  
 
 function AlterarUsuario()

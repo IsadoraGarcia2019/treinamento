@@ -1,5 +1,5 @@
-<!-- #include file = "../Servidor/Models/conexao.class.asp" -->
-<!-- #include file = "../Cliente/validacaoTarefa.asp" -->
+<!-- #include file = "../Models/conexao.class.asp" -->
+<!-- #include file = "../Models/tarefa.class.asp" -->
 <%
 Response.CodePage = 65001
 Response.CharSet = "UTF-8"
@@ -23,17 +23,27 @@ if (Request("fnTarget") <> "") then
 end if
 
 function CadastrarTarefa()
+	stop
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
+
+	set ObjTarefa = new Tarefa
+
 	tarData = Replace(tarData ,"T", " ")
 	tarData = FormatDateTime(tarData)
 
 	if validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
-		cn.execute("INSERT INTO tarefa (tarTitulo, geradorID, tarData, tarStatus, tarDescricao ) VALUES ('" & tarTitulo & "','" & geradorID & "','" & tarData & "','" & tarStatus & "','" & tarDescricao & "')")
-
-		set rs = cn.execute("select TOP 1 tarID FROM tarefa ORDER BY tarID DESC")
-		if not rs.eof then
-			tarID = rs("tarID")
-		end if
+		ObjTarefa.setTitulo(tarTitulo)
+		ObjTarefa.setgeradorID(geradorID)
+		ObjTarefa.setData(tarData)
+		ObjTarefa.setStatus(tarStatus)
+		ObjTarefa.setDescricao(tarDescricao)
+		
+		r = ObjTarefa.CadastrarTarefa(cn, ObjTarefa)
+		mensagem = "Tarefa cadastrada com sucesso!"
 	end if
+	' rs.Close()
+	cn.close
 end function
 
 function AlterarTarefa()
@@ -48,6 +58,8 @@ function ExcluirTarefa()
 end function
 
 function carregarTarefa()
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
 
 	if tarID > 0 then 
 		
@@ -70,6 +82,33 @@ function carregarTarefa()
 			response.write "}"
 		end if
 	end if
+end function
+
+function BuscarGeradores()
+	stop
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
+	set gerador = new Tarefa
+	set rs = gerador.BuscarGeradores(cn)
+	if not rs.eof then
+		Response.ContentType = "application/json"
+		response.write "{"
+		response.write """Geradores"":["
+		Do while not rs.eof 
+			response.write "{"
+			response.write 		"""geradorID"": """ & rs("geradorID").value & """"
+			response.write 		",""nome"": """ & rs("nome").value & """"
+			response.write "}"
+			if rs.AbsolutePosition < rs.RecordCount then
+				response.write ","
+			end if
+			rs.moveNext()
+		loop
+	end if
+	response.write "]"
+	response.write "}"
+	' rs.Close()
+	cn.close
 end function
 
 %>

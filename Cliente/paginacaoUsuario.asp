@@ -1,4 +1,8 @@
+<!-- #include file = "../Servidor/Models/conexao.class.asp" -->
 <%
+set ObjConexao = new Conexao
+set cn = ObjConexao.AbreConexao()
+
 'Recordsets
 dim rsUsuario
 set rsUsuario = cn.Execute("SELECT UsuID, Nome, Usuario, Endereco, Cidade, Cep FROM Usuario")

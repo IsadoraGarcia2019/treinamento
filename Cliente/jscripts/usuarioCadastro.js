@@ -8,7 +8,7 @@ window.addEventListener('load', function(e) {
 function adicionarEventos(){
     var estadoid = document.getElementById("estadoid");
     var btnCadastrar = document.getElementById("btnCadastrar");
-    var btnNovo = document.getElementById("btnNovo");
+    var btnAlterar = document.getElementById("btnAlterar");
     var btnExcluir = document.getElementById("btnExcluir");
     var btnNovo = document.getElementById("btnNovo");
 

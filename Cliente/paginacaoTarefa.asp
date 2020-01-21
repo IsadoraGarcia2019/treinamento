@@ -1,17 +1,19 @@
+<!-- #include file = "../Servidor/Models/conexao.class.asp" -->
 <%
+set ObjConexao = new Conexao
+set cn = ObjConexao.AbreConexao()
+
 'Recordsets
 dim rsTarefa
-
-Response.charset="utf-8"
-dim intLimit
 set rsTarefa = cn.Execute("SELECT tarID, tarTitulo, geradorID, tarData, tarStatus, tarDescricao FROM tarefa")
+dim intLimit
 dim numeroAtual
 dim Npagina
 dim botao
 dim btnAcao
 dim inputAcao
 dim Ndepaginas
-dim usuid
+dim geradorID
 dim usuario
 
 inputAcao = request.form("input")
@@ -37,7 +39,6 @@ Npagina = CInt(Npagina)
 inputAcao = CInt(inputAcao)
 
 intLimit = "30"
-
 set recordSet = Server.CreateObject("ADODB.recordset")
 call recordSet.Open("SELECT tarID FROM tarefa ORDER BY tarID asc;",cn,1,1)
 Ndepaginas =  Round(recordSet.recordcount / 30 + 1)
