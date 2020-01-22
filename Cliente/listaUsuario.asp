@@ -1,17 +1,7 @@
-<!-- #include file = "AJAX/conexao.asp" -->
-<!-- #include file = "paginacaoUsuario.asp" -->
-<%
-'AQUI CASO NAO ESTEJA LOGADO VAI PARA A PAGINA DE LOGIN
-if Session("usuario") <> "logado"  then
-    response.Redirect("logon.asp")
-end if
-
-%>
+<!-- #include file = "verificacaoLogado.asp" -->
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-
     <!-- #include file = "Includes/HTMLhead.inc" -->
     <link rel="stylesheet" type="text/css" href="./css/listaUsuario.css">
     <title>Lista de Usuários</title>
@@ -30,42 +20,6 @@ end if
                 <th><b>Cep</b></th>
                 <th><b>Editar</b></th>
             </tr>
-            <%
-            Do while not recordSet.eof
-                Response.write("<tr>")
-                Response.write("<td>")
-                Response.write(recordSet("Nome").value)
-                Response.write("</td>") 
-                Response.write("<td>")
-                Response.write(recordSet("Usuario").value)
-                Response.write("</td>")  
-                Response.write("<td>")
-                Response.write(recordSet("Endereco").value)
-                Response.write("</td>") 
-                Response.write("<td>")
-                Response.write(recordSet("Cidade").value)
-                Response.write("</td>")
-                Response.write("<td>")
-                Response.write(recordSet("Cep").value)
-                Response.write("</td>")    
-                Response.write("<td><a href=""usuarioCadastro.asp?usuid=" & recordSet("usuid") &"""><img src='./imagens/editar.png '/></a></td>")
-                Response.write("</tr>")
-                recordSet.moveNext()
-            loop
-            recordSet.close()
-            if numeroAtual = intTotal then
-                voltarDisableddenovo = "disabled"
-            end if
-            %>
-            <form id="formInput" action="listaUsuario.asp" method="post">
-                <input type="hidden" id="Npagina" name="Npagina" value="<%=Npagina %>">
-                <td colspan="6" class="pimba">
-                    <input type="submit" name="botao" class="btnPagina" id="inputFormPaginacao" <%=voltarDisabled%> value="<<">
-                    <input type="text " name="input" size="1" id="inputFormPaginacao" onkeyup="numero(event, 'formInput')">
-                    <input type="submit" name="botao" class="btnPagina" id="inputFormPaginacao"id="inputFormPaginacao" <%=voltarDisableddenovo%> value=">>">
-                    <div id="numeroRegistros"><strong>Mostrando <%=numeroAtual%> de <%=intTotal %> registros</strong></div>
-                </td>
-            </form>
         </table>
     </div>
     <script type="text/javascript" src="./jscripts/listaUsuario.js"></script>

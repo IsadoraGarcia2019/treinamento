@@ -1,3 +1,4 @@
+var input;
 window.addEventListener('load', function(e) {
     carregarTarefa();
     adicionarEventos();
@@ -10,7 +11,7 @@ function adicionarEventos(){
     var btnAlterar = document.getElementById("btnAlterar");
     var btnExcluir = document.getElementById("btnExcluir");
     var btnNovo = document.getElementById("btnNovo");
-    
+
     btnCadastrar.addEventListener("click", function (e) {
         CadastrarTarefa(e);
     });
@@ -20,16 +21,17 @@ function adicionarEventos(){
     });
     btnExcluir.addEventListener("click", function (e) {
         ExcluirTarefa(e);
-    });btnNovo.addEventListener("click", function (e) {
-        limparCampos(e);
     });
+    btnNovo.addEventListener("click", function (e) {
+        limparCampos(e);
+    });  
 }
 
 function BuscarGeradores() {
     if (!geradorID) {
         return false;
     }
-
+    debugger
     $.ajax({
         url: "../Servidor/Controllers/tarefaAjax.asp",
         type: 'POST',
@@ -57,7 +59,7 @@ function preencheOptions(geradorID, data) {
     }
 }
 
-function carregarTarefa(){
+function carregarTarefa(e){
     debugger
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
@@ -151,6 +153,7 @@ function AlterarTarefa(e){
                 "tarDescricao": tarDescricao
             },
             success: function(data){
+                debugger
                 alert(data.mensagem);
                 document.getElementById("btnCadastrar").style.display = "none";
                 location.href = "../Cliente/lista.asp";                             

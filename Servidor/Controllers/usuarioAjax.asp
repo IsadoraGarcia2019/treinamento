@@ -25,6 +25,7 @@ function CadastrarUsuario()
 	set cn = ObjConexao.AbreConexao()
 
 	set ObjUsuario = new cUsuario
+	mensagem = "Usuário não cadastrado"
 	if ObjUsuario.validaNome(usuario,senha,nome,endereco,cidade,cep,estadoid) then
 
 		ObjUsuario.setUsuario(usuario)
@@ -38,14 +39,19 @@ function CadastrarUsuario()
 		r = ObjUsuario.CadastrarUsuario(cn, ObjUsuario)
 		mensagem = "Usuario cadastrado com sucesso"	
 	end if
-	' rs.Close()
-	cn.close
+	Response.ContentType = "application/json"
+	response.write "{"
+	response.write 		"""mensagem"": """ & mensagem & """"
+	response.write "}"
+	ObjConexao.FecharConexao(cn)
 end function  
 
 function AlterarUsuario()
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set ObjUsuario = new cUsuario
+
+	mensagem = "Não foi possivel alterar esse usuário"
 
 	if usuid > 0 then
 		ObjUsuario.setId(usuid)
@@ -59,8 +65,12 @@ function AlterarUsuario()
 
 		r = ObjUsuario.AlterarUsuario(cn, ObjUsuario)	
 		mensagem = "Usuario alterado com sucesso"	
-	' rs.Close()
-	cn.close
+
+		Response.ContentType = "application/json"
+		response.write "{"
+		response.write 		"""mensagem"": """ & mensagem & """"
+		response.write "}"
+	ObjConexao.FecharConexao(cn)
 end if
 end function      
 
@@ -83,8 +93,7 @@ Response.ContentType = "application/json"
 response.write "{"
 response.write 		"""mensagem"": """ & mensagem & """"
 response.write "}"
-	' rs.Close()
-	cn.close
+	ObjConexao.FecharConexao(cn)
 end function
 
 function carregarUsuario()
@@ -108,8 +117,36 @@ function carregarUsuario()
 			response.write "}"
 		end if
 	End if	
-	' rs.Close()
-	cn.close
+	ObjConexao.FecharConexao(cn)
+end function
+
+function BuscarUsuarios()
+
+set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
+	set usuarios = new cUsuario
+	set rs = usuarios.BuscarUsuarios(cn)
+	if not rs.eof then
+		Response.ContentType = "application/json"
+		response.write "{"
+		response.write """Usuarios"":["
+		Do while not rs.eof 
+			response.write "{"
+			response.write 		"""nome"": """ & rs("nome").value & """"
+			response.write 		",""usuario"": """ & rs("usuario").value & """"
+			response.write 		",""endereco"": """ & rs("endereco").value & """"
+			response.write 		",""cidade"": """ & rs("cidade").value & """"
+			response.write 		",""cep"": """ & rs("cep").value & """"
+			response.write "}"
+			if rs.AbsolutePosition < rs.RecordCount then
+				response.write ","
+			end if
+			rs.moveNext()
+		loop
+	end if
+	response.write "]"
+	response.write "}"
+	ObjConexao.FecharConexao(cn)
 end function
 
 function BuscarEstados()
@@ -135,8 +172,7 @@ function BuscarEstados()
 	end if
 	response.write "]"
 	response.write "}"
-	' rs.Close()
-	cn.close
+	ObjConexao.FecharConexao(cn)
 end function
 
 %>

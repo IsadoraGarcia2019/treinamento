@@ -36,10 +36,10 @@
 
             <label for="tarStatus">Status: </label>
             <select name="tarStatus" id="tarStatus">
-                <option value="0" <% if tarStatus = "0" then %> selected <% else %> placeholder="" <%end if %> >Não iniciado</option>
-                <option value="1" <% if tarStatus = "1" then %> selected <% else %> placeholder="" <%end if %> >Em andamento</option>
-                <option value="7" <% if tarStatus = "7" then %> selected <% else %> placeholder="" <%end if %> >Cancelada</option>
-                <option value="9" <% if tarStatus = "9" then %> selected <% else %> placeholder="" <%end if %> >Concluída</option>
+                <option value="0">Não iniciado</option>
+                <option value="1">Em andamento</option>
+                <option value="7">Cancelada</option>
+                <option value="9">Concluída</option>
             </select>
 
             <br />
@@ -51,9 +51,9 @@
 
             <div class="botoes">
                <button class="button" id="btnCadastrar">Cadastrar</button> 
-               <button class="button" onclick="AlterarTarefa(event)" id="btnAlterar" >Alterar</button>     
-               <button onclick="ExcluirTarefa(event)" class="button" id="btnExcluir" style="display: none !important;" >Excluir</button>    
-               <button  onclick="limparCampos()" class="button" id="btnNovo">Novo</button>  
+               <button class="button" id="btnAlterar" >Alterar</button>     
+               <button class="button" id="btnExcluir" style="display: none !important;" >Excluir</button>    
+               <button class="button" id="btnNovo">Novo</button>  
            </div>
        </div>
    </form>

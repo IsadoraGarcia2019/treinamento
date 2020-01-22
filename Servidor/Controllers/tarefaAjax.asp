@@ -31,6 +31,8 @@ function CadastrarTarefa()
 	tarData = Replace(tarData ,"T", " ")
 	tarData = FormatDateTime(tarData)
 
+	mensagem = "Tarefa não cadastrada!"
+
 	if ObjTarefa.validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
 		ObjTarefa.setTitulo(tarTitulo)
 		ObjTarefa.setgeradorID(geradorID)
@@ -41,8 +43,12 @@ function CadastrarTarefa()
 		r = ObjTarefa.CadastrarTarefa(cn, ObjTarefa)
 		mensagem = "Tarefa cadastrada com sucesso!"
 	end if
-	' rs.Close()
-	cn.close
+	
+	Response.ContentType = "application/json"
+	response.write "{"
+	response.write 		"""mensagem"": """ & mensagem & """"
+	response.write "}"
+	ObjConexao.FecharConexao(cn)
 end function
 
 function AlterarTarefa()
@@ -50,6 +56,8 @@ function AlterarTarefa()
 	set cn = ObjConexao.AbreConexao()
 	set ObjTarefa = new Tarefa
 	
+	mensagem = "Não foi possível aletar essa tarefa"
+
 	if tarID > 0 then
 
 		ObjTarefa.setId(tarID)
@@ -60,10 +68,14 @@ function AlterarTarefa()
 		ObjTarefa.setDescricao(tarDescricao)
 
 		r = ObjTarefa.AlterarTarefa(cn, ObjTarefa)
-		mensagem = "Tarefa alterada com sucesso!"
-		' rs.Close()
-		cn.close
+		mensagem = "Tarefa alterada com sucesso!"		
 	end if
+
+	Response.ContentType = "application/json"
+	response.write "{"
+	response.write 		"""mensagem"": """ & mensagem & """"
+	response.write "}"
+	ObjConexao.FecharConexao(cn)
 end function
 
 function ExcluirTarefa()
@@ -71,8 +83,16 @@ function ExcluirTarefa()
 	set cn = ObjConexao.AbreConexao()
 	set ObjTarefa = new Tarefa
 
+	mensagem = "Não foi possível excluir essa tarefa"
+
 	r = ObjTarefa.ExcluirTarefa(cn, tarID)
 	mensagem = "Tarefa excluida com sucesso"
+	
+	Response.ContentType = "application/json"
+	response.write "{"
+	response.write 		"""mensagem"": """ & mensagem & """"
+	response.write "}"
+	ObjConexao.FecharConexao(cn)
 end function
 
 function carregarTarefa()
@@ -80,7 +100,7 @@ function carregarTarefa()
 	set cn = ObjConexao.AbreConexao()
 
 	if tarID > 0 then 
-		
+
 		set rs = cn.Execute("SELECT * FROM tarefa WHERE tarID = "&tarID)
 
 		if not rs.eof then
@@ -89,7 +109,7 @@ function carregarTarefa()
 			Data = split(novaData(0),"/")
 			Data2 = Data(2) & "-" & Data(1) & "-" & Data(0)
 			novavar = Data2 & "T" & NovaData(1)
-			
+
 			Response.ContentType = "application/json"
 			response.write "{"
 			response.write 		"""tarTitulo"": """ & rs("tarTitulo").value & """"
@@ -124,8 +144,28 @@ function BuscarGeradores()
 	end if
 	response.write "]"
 	response.write "}"
-	' rs.Close()
-	cn.close
+	ObjConexao.FecharConexao(cn)
 end function
 
+' function atualizaStatus()
+' 	set ObjConexao = new Conexao
+' 	set cn = ObjConexao.AbreConexao()
+' 	set ObjTarefa = new Tarefa
+
+' 	ObjTarefa.setStatus(tarStatus)
+
+' 	r = ObjTarefa.AlterarTarefa(cn, tarID)
+' 	ObjConexao.FecharConexao(cn)
+' end function
+
+' function atualizaTitulo()
+' 	set ObjConexao = new Conexao
+' 	set cn = ObjConexao.AbreConexao()
+' 	set ObjTarefa = new Tarefa
+
+' 	ObjTarefa.setTitulo(tarTitulo)
+
+' 	r = ObjTarefa.AlterarTarefa(cn, tarID)
+' 	ObjConexao.FecharConexao(cn)
+' end function
 %>

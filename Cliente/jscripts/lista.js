@@ -1,6 +1,25 @@
 var input;
+window.addEventListener('load', function(e) {
+    adicionarEventos();
+});
+
+function adicionarEventos(){
+
+ var btnImg = document.getElementById("btnImg");
+ var tblTarefa = document.getElementById("tblTarefa");
+
+ btnImg.addEventListener("dblclick", function (e) {
+    debugger
+    mudarImagem(e);
+});
+
+ tblTarefa.addEventListener("dblclick", function (e) {
+    edicaoTarefa(e);
+});
+}
 
 function mudarImagem(objImagem, tarID) {
+
     var status = 0;
     if (objImagem.src.indexOf("cadeadoAberto") > -1) {
 
@@ -16,7 +35,7 @@ function mudarImagem(objImagem, tarID) {
 
     }
     return $.ajax({
-        url: "AJAX/update.asp",
+        url: "../Servidor/Controllers/listaAjax.asp",
         type: 'POST',
         data: {
             "fnTarget": "atualizaStatus",
@@ -29,9 +48,9 @@ function mudarImagem(objImagem, tarID) {
     });
 }
 
-function edicaoTarefa(tableData, tarID) {
-    var titulo = tableData.textContent;
-    tableData.textContent = "";
+function edicaoTarefa(e, tableData, tarID) {
+    debugger
+    var titulo = e.currentTarget;
 
     input = document.createElement("input");
 
@@ -56,7 +75,7 @@ function edicaoTarefa(tableData, tarID) {
 
 function salvaTarefa(txt, tarID) {
     return $.ajax({
-        url: "AJAX/update.asp",
+        url: "../Servidor/Controllers/listaAjax.asp",
         type: 'POST',
         async: false,
         data: {

@@ -1,11 +1,12 @@
 <!-- #include file = "../Servidor/Controllers/logonAjax.asp" -->
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="./css/reset-min.css">
     <link rel="stylesheet" type="text/css" href="./css/logon.css">
+    <script type="text/javascript" src="./jscripts/logon.js" /></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Logon</title>
 </head>
 <body>
@@ -25,10 +26,8 @@
             </div>
 
             <div class="alerta" id="divAlerta"></div>
-            <button onclick="verificarURL(event)" type="submit" name="btnEntrar" id="btnEntrar"><b>Entrar</b></button>
+            <button type="submit" name="btnEntrar" id="btnEntrar"><b>Entrar</b></button>
         </div>
     </form>
-    <script type="text/javascript" src="./jscripts/logon.js" /></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 </html>

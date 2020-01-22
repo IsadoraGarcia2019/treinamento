@@ -1,3 +1,14 @@
+window.addEventListener('load', function(e) {
+    adicionarEventos();
+});
+function adicionarEventos(){
+    var btnEntrar = document.getElementById("btnEntrar");
+
+    btnEntrar.addEventListener("click", function (e) {
+        verificarURL(event);
+    });
+}
+
 function verificarURL(event) {
     debugger
     event.preventDefault();

@@ -97,6 +97,7 @@ Class cUsuario
 
         set ExcluirUsuario = rs
     end function
+    
     'Buscar usuários
     public function BuscarUsuarios(cn)
         '

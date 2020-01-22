@@ -1,10 +1,5 @@
 <!-- #include file = "paginacaoTarefa.asp" -->
-<% 
-'AQUI CASO NAO ESTEJA LOGADO VAI PARA A PAGINA DE LOGIN
-if Session("usuario") <> "logado"  then
-    response.Redirect("logon.asp")
-end if
-%>
+<!-- #include file = "verificacaoLogado.asp" -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -17,7 +12,7 @@ end if
     <div class="box">
       <p>Tarefas</p>
       <a href="TarefaCadastro.asp">Nova Tarefa</a>
-      <table>
+      <table id="tblTarefa">
         <tr>
             <th style="padding-left: 20px;"><b>Nº</b></th>
             <th><b>Título</b></th>
@@ -52,7 +47,7 @@ end if
             Response.write("<td>")
             Response.write("<a href=""/treinamento/Cliente/TarefaCadastro.asp?tarID=" & recordSet("tarID") &""">"&id&"</a>")
             Response.write("</td>") 
-            Response.write("<td ondblclick='edicaoTarefa(this, "&id&")' id='tar"&id&"' >")         
+            Response.write("<td id='tar"&id&"' >")         
             Response.write(titulo)
             Response.write("</td>") 
             Response.write("<td>")
@@ -61,7 +56,7 @@ end if
             Response.write("<td>")
             Response.write(recordSet("tarData").value)
             Response.write("</td>")                                
-            Response.write("<td id='img"&id&"'><img ondblclick=""mudarImagem(this,"&id&")""src='"&imgStatus&"' alt='invalido'/></td>")
+            Response.write("<td id='btnImg' "&id&"'><img src='"&imgStatus&"' alt='invalido'/></td>")
             Response.write("</tr>")
             recordSet.moveNext()
         loop
@@ -84,7 +79,7 @@ end if
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script type="text/javascript" src="jscripts/lista.js"></script>
+<script type="text/javascript" src="./jscripts/lista.js"></script>
 <script type="text/javascript" src="jscripts/auxiliar.js"></script>
 </body>
 </html>

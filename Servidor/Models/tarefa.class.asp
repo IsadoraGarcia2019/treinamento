@@ -51,26 +51,46 @@ Class Tarefa
     End sub
 
     Public function CadastrarTarefa(cn, ObjTarefa)
-        cn.execute("INSERT INTO tarefa (tarTitulo, geradorID, tarData, tarStatus, tarDescricao ) VALUES ('" & ObjTarefa.getTitulo() & "','" & ObjTarefa.getgeradorID()& "','" & ObjTarefa.getData() & "','" & ObjTarefa.getStatus() & "','" & ObjTarefa.getDescricao() & "')")
+        sql = "INSERT INTO [dbo].[tarefa] (tarTitulo, geradorID, tarData, tarStatus, tarDescricao ) VALUES ("
+        sql = sql & "'" & ObjTarefa.getTitulo() & "','"
+        sql = sql & "'" & ObjTarefa.getgeradorID()& "','"
+        sql = sql & "'" & ObjTarefa.getData() & "','"
+        sql = sql & "'" & ObjTarefa.getStatus() & "','" 
+        sql = sql & "'" & ObjTarefa.getDescricao() & "');"
 
-        set rs = cn.execute("select TOP 1 tarID FROM tarefa ORDER BY tarID DESC")
-
-        if not rs.eof then
-            tarID = rs("tarID")
-        end if
-
-        set CadastrarTarefa = rs
+        cn.Execute(sql)
+        Set rs=Server.CreateObject("ADODB.recordset")
+        rs.Open "SELECT SCOPE_IDENTITY() As tarID;", cn
+        CadastrarTarefa = rs("tarID").value
+        rs.close()            
     end function
 
     Public function AlterarTarefa(cn, ObjTarefa)
-        set rs = cn.execute("UPDATE tarefa SET tarTitulo = '" & tarTitulo & "', geradorID = '" & geradorID & "', tarData = '" & tarData & "',  tarStatus = '" & tarStatus & "', tarDescricao = '" & tarDescricao & "' WHERE tarID =" & tarID)
+        sql = "UPDATE [dbo].[tarefa] SET "
+        sql = sql & "'" & ObjTarefa.getTitulo()  & "',"
+        sql = sql & "'" & ObjTarefa.getgeradorID() & "',"
+        sql = sql & "'" & ObjTarefa.getData() & "',"
+        sql = sql & "'" & ObjTarefa.getStatus() & "',"
+        sql = sql & "'" & ObjTarefa.getDescricao & "'"
+        sql = sql & "WHERE tarID =" & ObjTarefa.tarID ")"
 
-        set AlterarTarefa = rs
+        cn.Execute(sql)
+        Set rs=Server.CreateObject("ADODB.recordset")
+        rs.Open "SELECT SCOPE_IDENTITY() As tarID;", cn
+        CadastrarTarefa = rs("tarID").value
+        rs.close()   
     end function
 
     Public function ExcluirTarefa(cn, tarID)
-        set rs = cn.execute("DELETE FROM tarefa WHERE tarID = " & tarID)
-        set ExcluirTarefa = rs
+        sql = "DELETE FROM [dbo].[tarefa] "
+        sql = "WHERE tarID = " & ObjTarefa.tarID
+
+        cn.Execute(sql)
+        Set rs=Server.CreateObject("ADODB.recordset")
+        rs.Open "SELECT SCOPE_IDENTITY() As tarID;", cn
+        CadastrarTarefa = rs("tarID").value
+        rs.close()   
+
     end function
     'Buscar geradores
     public function BuscarGeradores(cn)
@@ -78,9 +98,9 @@ Class Tarefa
         ' TODO Lógica para busca de geradores
         '
         sql = "SELECT [usuid],[nome] FROM [treinamento].[dbo].[usuario]"
+        cn.Execute(sql)
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001
-        set BuscarGeradores = rs
     end function
 
     function validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao)
