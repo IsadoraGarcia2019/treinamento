@@ -23,7 +23,6 @@ if (Request("fnTarget") <> "") then
 end if
 
 function CadastrarTarefa()
-	stop
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 
@@ -32,7 +31,7 @@ function CadastrarTarefa()
 	tarData = Replace(tarData ,"T", " ")
 	tarData = FormatDateTime(tarData)
 
-	if validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
+	if ObjTarefa.validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
 		ObjTarefa.setTitulo(tarTitulo)
 		ObjTarefa.setgeradorID(geradorID)
 		ObjTarefa.setData(tarData)
@@ -47,14 +46,33 @@ function CadastrarTarefa()
 end function
 
 function AlterarTarefa()
-	if tarID <> 0 then
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
+	set ObjTarefa = new Tarefa
+	
+	if tarID > 0 then
 
-		set rs = cn.execute("UPDATE tarefa SET tarTitulo = '" & tarTitulo & "', geradorID = '" & geradorID & "', tarData = '" & tarData & "',  tarStatus = '" & tarStatus & "', tarDescricao = '" & tarDescricao & "' WHERE tarID =" & tarID)
+		ObjTarefa.setId(tarID)
+		ObjTarefa.setTitulo(tarTitulo)
+		ObjTarefa.setgeradorID(geradorID)
+		ObjTarefa.setData(tarData)
+		ObjTarefa.setStatus(tarStatus)
+		ObjTarefa.setDescricao(tarDescricao)
+
+		r = ObjTarefa.AlterarTarefa(cn, ObjTarefa)
+		mensagem = "Tarefa alterada com sucesso!"
+		' rs.Close()
+		cn.close
 	end if
 end function
 
 function ExcluirTarefa()
-	set rs = cn.execute("DELETE FROM tarefa WHERE tarID = " & tarID)
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
+	set ObjTarefa = new Tarefa
+
+	r = ObjTarefa.ExcluirTarefa(cn, tarID)
+	mensagem = "Tarefa excluida com sucesso"
 end function
 
 function carregarTarefa()
@@ -85,7 +103,6 @@ function carregarTarefa()
 end function
 
 function BuscarGeradores()
-	stop
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set gerador = new Tarefa
@@ -96,7 +113,7 @@ function BuscarGeradores()
 		response.write """Geradores"":["
 		Do while not rs.eof 
 			response.write "{"
-			response.write 		"""geradorID"": """ & rs("geradorID").value & """"
+			response.write 		"""usuid"": """ & rs("usuid").value & """"
 			response.write 		",""nome"": """ & rs("nome").value & """"
 			response.write "}"
 			if rs.AbsolutePosition < rs.RecordCount then

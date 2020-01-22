@@ -51,7 +51,6 @@ Class Tarefa
     End sub
 
     Public function CadastrarTarefa(cn, ObjTarefa)
-        stop
         cn.execute("INSERT INTO tarefa (tarTitulo, geradorID, tarData, tarStatus, tarDescricao ) VALUES ('" & ObjTarefa.getTitulo() & "','" & ObjTarefa.getgeradorID()& "','" & ObjTarefa.getData() & "','" & ObjTarefa.getStatus() & "','" & ObjTarefa.getDescricao() & "')")
 
         set rs = cn.execute("select TOP 1 tarID FROM tarefa ORDER BY tarID DESC")
@@ -63,6 +62,16 @@ Class Tarefa
         set CadastrarTarefa = rs
     end function
 
+    Public function AlterarTarefa(cn, ObjTarefa)
+        set rs = cn.execute("UPDATE tarefa SET tarTitulo = '" & tarTitulo & "', geradorID = '" & geradorID & "', tarData = '" & tarData & "',  tarStatus = '" & tarStatus & "', tarDescricao = '" & tarDescricao & "' WHERE tarID =" & tarID)
+
+        set AlterarTarefa = rs
+    end function
+
+    Public function ExcluirTarefa(cn, tarID)
+        set rs = cn.execute("DELETE FROM tarefa WHERE tarID = " & tarID)
+        set ExcluirTarefa = rs
+    end function
     'Buscar geradores
     public function BuscarGeradores(cn)
         '

@@ -1,6 +1,7 @@
 window.addEventListener('load', function(e) {
     carregarTarefa();
     adicionarEventos();
+    BuscarGeradores();
 });
 
 function adicionarEventos(){
@@ -9,26 +10,22 @@ function adicionarEventos(){
     var btnAlterar = document.getElementById("btnAlterar");
     var btnExcluir = document.getElementById("btnExcluir");
     var btnNovo = document.getElementById("btnNovo");
-    debugger
-    geradorID.addEventListener("click", function () {
-        BuscarGeradores();
-    });
+    
     btnCadastrar.addEventListener("click", function (e) {
-        CadastrarUsuario(e);
+        CadastrarTarefa(e);
     });
 
     btnAlterar.addEventListener("click", function (e) {
-        AlterarUsuario(e);
+        AlterarTarefa(e);
     });
     btnExcluir.addEventListener("click", function (e) {
-        ExcluirUsuario(e);
+        ExcluirTarefa(e);
     });btnNovo.addEventListener("click", function (e) {
         limparCampos(e);
     });
 }
 
 function BuscarGeradores() {
-    debugger
     if (!geradorID) {
         return false;
     }
@@ -56,7 +53,7 @@ function preencheOptions(geradorID, data) {
         var opt = document.createElement('option');
         opt.innerHTML = gerador[i]['nome'];
         opt.value = gerador[i]['usuid'];
-        gerador.appendChild(opt);
+        geradorID.appendChild(opt);
     }
 }
 
@@ -99,7 +96,6 @@ function limparCampos() {
 }
 
 function CadastrarTarefa(e) {
-    debugger
     e.preventDefault();
     var tarTitulo = document.getElementById("tarTitulo").value;
     var geradorID = document.getElementById("geradorID").value;
@@ -119,7 +115,8 @@ function CadastrarTarefa(e) {
             "tarStatus": tarStatus,
             "tarDescricao": tarDescricao
         },
-        success: function(){
+        success: function(data){
+            alert(data.mensagem);
             document.getElementById("btnCadastrar").style.display = "none";            
             document.getElementById("btnExcluir").style.display = "inline";            
         }
@@ -153,16 +150,17 @@ function AlterarTarefa(e){
                 "tarStatus": tarStatus,
                 "tarDescricao": tarDescricao
             },
-            success: function(){
+            success: function(data){
+                alert(data.mensagem);
                 document.getElementById("btnCadastrar").style.display = "none";
-                alert("Tarefa alterada com sucesso !!");
-                location.href = "/treinamento/lista.asp";                             
+                location.href = "../Cliente/lista.asp";                             
             }
         });
     }
 }
 
 function ExcluirTarefa(e) {
+    debugger
     e.preventDefault();
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
@@ -179,9 +177,9 @@ function ExcluirTarefa(e) {
                     "fnTarget": "ExcluirTarefa", 
                     "tarID": tarID
                 },
-                success: function(){
+                success: function(data){
                     alert(data.mensagem);
-                    location.href = "/treinamento/Cliente/lista.asp";                             
+                    location.href = "../Cliente/lista.asp";                             
                 }
             });
         }
