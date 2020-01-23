@@ -72,7 +72,7 @@ Class Tarefa
         sql = sql & "'" & ObjTarefa.getData() & "',"
         sql = sql & "'" & ObjTarefa.getStatus() & "',"
         sql = sql & "'" & ObjTarefa.getDescricao & "'"
-        sql = sql & "WHERE tarID =" & ObjTarefa.tarID ")"
+        sql = sql & "WHERE tarID =" & ObjTarefa.tarID
 
         cn.Execute(sql)
         Set rs=Server.CreateObject("ADODB.recordset")
@@ -97,6 +97,7 @@ Class Tarefa
         '
         ' TODO Lógica para busca de geradores
         '
+        stop
         sql = "SELECT [usuid],[nome] FROM [treinamento].[dbo].[usuario]"
         cn.Execute(sql)
         Set rs=Server.CreateObject("ADODB.recordset")

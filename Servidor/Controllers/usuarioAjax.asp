@@ -6,6 +6,9 @@ Response.CharSet = "UTF-8"
 
 dim rs
 dim usuario, senha, nome, endereco, cidade, cep, estadoid, usuid
+dim palavraParaPesquisa
+dim RegistrosPorPagina 
+dim PaginaPesquisa
 
 usuid=cint(0&Request("usuid"))
 usuario=replace(Request.Form("usuario"), "'", "''") 
@@ -70,8 +73,8 @@ function AlterarUsuario()
 		response.write "{"
 		response.write 		"""mensagem"": """ & mensagem & """"
 		response.write "}"
-	ObjConexao.FecharConexao(cn)
-end if
+		ObjConexao.FecharConexao(cn)
+	end if
 end function      
 
 function ExcluirUsuario()
@@ -93,7 +96,7 @@ Response.ContentType = "application/json"
 response.write "{"
 response.write 		"""mensagem"": """ & mensagem & """"
 response.write "}"
-	ObjConexao.FecharConexao(cn)
+ObjConexao.FecharConexao(cn)
 end function
 
 function carregarUsuario()
@@ -122,7 +125,7 @@ end function
 
 function BuscarUsuarios()
 
-set ObjConexao = new Conexao
+	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set usuarios = new cUsuario
 	set rs = usuarios.BuscarUsuarios(cn)
@@ -137,6 +140,7 @@ set ObjConexao = new Conexao
 			response.write 		",""endereco"": """ & rs("endereco").value & """"
 			response.write 		",""cidade"": """ & rs("cidade").value & """"
 			response.write 		",""cep"": """ & rs("cep").value & """"
+			response.write 		",""usuid"": """ & rs("usuid").value & """"
 			response.write "}"
 			if rs.AbsolutePosition < rs.RecordCount then
 				response.write ","

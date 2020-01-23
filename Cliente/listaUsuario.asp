@@ -11,15 +11,17 @@
     <div class="box">
         <p>Usuário</p>
         <a href="usuarioCadastro.asp">Novo Usuário</a>
-        <table>
-            <tr>
-                <th><b>Nome</b></th>
-                <th><b>Usuário</b></th>
-                <th><b>Endereço</b></th>
-                <th><b>Cidade</b></th>
-                <th><b>Cep</b></th>
-                <th><b>Editar</b></th>
-            </tr>
+        <table  id="tblUsuarios">
+            <thead>
+                <tr>
+                    <th><b>Nome</b></th>
+                    <th><b>Usuário</b></th>
+                    <th><b>Endereço</b></th>
+                    <th><b>Cidade</b></th>
+                    <th><b>Cep</b></th>
+                    <th><b>Editar</b></th>
+                </tr>
+            </thead>            
         </table>
     </div>
     <script type="text/javascript" src="./jscripts/listaUsuario.js"></script>

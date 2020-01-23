@@ -30,6 +30,7 @@ function adicionarEventos(){
 }
 
 function carregarUsuario(){    
+    debugger
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
     var id = urlParams.get('usuid');
