@@ -147,6 +147,35 @@ function BuscarGeradores()
 	ObjConexao.FecharConexao(cn)
 end function
 
+function BuscarTarefas()
+stop
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
+	set tarefas = new Tarefa
+	set rs = tarefas.BuscarTarefas(cn)
+	if not rs.eof then
+		Response.ContentType = "application/json"
+		response.write "{"
+		response.write """Tarefas"":["
+		Do while not rs.eof
+			response.write "{"
+			response.write """tarID"":""" & rs("tarID").value & """"
+			response.write ",""tarTitulo"":""" & rs("tarTitulo").value & """"
+			response.write ",""tarDescricao"":""" & rs("tarDescricao").value & """"
+			response.write ",""tarData"":""" & rs("tarData").value & """"
+			response.write ",""tarStatus"":""" & rs("tarStatus").value & """"
+			response.write "}"
+			if rs.AbsolutePosition < rs.RecordCount then
+				response.write ","
+			end if
+			rs.moveNext()
+		loop
+	end if
+	response.write "]"
+	response.write "}"
+	ObjConexao.FecharConexao(cn)
+end function
+
 ' function atualizaStatus()
 ' 	set ObjConexao = new Conexao
 ' 	set cn = ObjConexao.AbreConexao()

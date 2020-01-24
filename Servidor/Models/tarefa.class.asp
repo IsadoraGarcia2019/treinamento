@@ -104,6 +104,16 @@ Class Tarefa
         rs.Open sql, cn, &H0001
     end function
 
+    'Buscar tarefas'
+    Public function BuscarTarefas(cn)
+        stop
+        sqlTarefa = "SELECT [tarID], [tarTitulo], [tarDescricao], [tarData], [tarStatus] FROM [dbo].[tarefa]"
+        cn.Execute(sqlTarefa)
+        set rs = Server.CreateObject("ADODB.recordset")
+        rs.Open sqlTarefa, cn , &H0001
+        set BuscarTarefas = rs
+    end function
+
     function validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao)
 
         dim resultado: resultado = true

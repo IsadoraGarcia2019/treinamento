@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    debugger
     AdicionarEventos();
     /*TODO - Evento de load da pagina não está funcionando por isso coloquei aqui verificar uma forma de resolver
     */
@@ -7,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function AdicionarEventos() {
-debugger
     var body = document.getElementsByTagName("BODY")[0];
     // carregamento dos dados com valores padrões
     body.addEventListener("load", function () {
@@ -16,7 +14,6 @@ debugger
 }
 
 function BuscarUsuarios() {
-    debugger
      return $.ajax({
         url: "../Servidor/Controllers/usuarioAjax.asp",
         type: 'POST',
@@ -33,7 +30,6 @@ function BuscarUsuarios() {
 }
 
 function PreencheTabela(data) {
-    debugger
     var dadosCorpo = data.Usuarios;
     var tblUsuarios = document.getElementById("tblUsuarios");
     TabelaCriarCorpo(tblUsuarios, dadosCorpo);
@@ -41,7 +37,6 @@ function PreencheTabela(data) {
 }
 
 function TabelaCriarCorpo(tblUsuarios, dadosCorpo) {
-    debugger
     var tbody = tblUsuarios.createTBody();
     for (var element of dadosCorpo) {
         var row = tbody.insertRow();
@@ -68,7 +63,6 @@ function TabelaCriarCorpo(tblUsuarios, dadosCorpo) {
 
 // function TabelaCriarRodape(tabela, dados) {
 
-//     debugger;
 //     var tfoot = tabela.createTFoot(); //<tfoot></tfoot>
 //     var row = tfoot.insertRow(0); //<tr></tr>
 //     var cell = row.insertCell(0);//<th></th>

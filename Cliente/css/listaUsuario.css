@@ -4,7 +4,7 @@ body {
 }
 
 .box {
-    background-color: #edfff9;
+    background-color: #bae4d6;
     width: 100%;
     height: 870px;
     display: block;
@@ -26,7 +26,7 @@ a {
     padding-left: 15px;
 }
 
-table {
+#tblUsuarios {
     border-collapse: collapse;
     width: 100%;
     margin-top: 15px;
@@ -52,7 +52,7 @@ tr:nth-child(even) {
 }
 
 tr:nth-child(odd) {
-    background-color: #DDD;
+    background-color: #c1c1c1;
     font-size: small;
     padding: 8px;
 }

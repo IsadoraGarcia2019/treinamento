@@ -89,66 +89,43 @@ Class cUsuario
 
     'Update de usuários
     public function AlterarUsuario(cn, ObjUsuario)
-        '
-        ' TODO Lógica de update de usuários
-        '
-        stop
+
         sql = "UPDATE [dbo].[usuario] SET "
-        sql = sql & "'" & ObjUsuario.getUsuario() & "', "
-        sql = sql & "'" & ObjUsuario.getSenha() & "', "
-        sql = sql & "'" & ObjUsuario.getNome() & "', "
-        sql = sql & "'" & ObjUsuario.getEndereco() & "', "
-        sql = sql & "'" & ObjUsuario.getCidade() & "', "
-        sql = sql & "'" & ObjUsuario.getCep() & "', "
-        sql = sql & "'" & ObjUsuario.getIdEstado() & "' "
+        sql = sql & "usuario = '" & ObjUsuario.getUsuario() & "', "
+        sql = sql & "senha = '" & ObjUsuario.getSenha() & "', "
+        sql = sql & "nome = '" & ObjUsuario.getNome() & "', "
+        sql = sql & "endereco = '" & ObjUsuario.getEndereco() & "', "
+        sql = sql & "cidade = '" & ObjUsuario.getCidade() & "', "
+        sql = sql & "cep = '" & ObjUsuario.getCep() & "', "
+        sql = sql & "estadoid = '" & ObjUsuario.getIdEstado() & "' "
         sql = sql & "WHERE usuid = " & ObjUsuario.getId()
 
         cn.Execute(sql)
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open "SELECT SCOPE_IDENTITY() As usuid;", cn
-        CadastrarUsuario = rs("usuid").value
+        AlterarUsuario = rs("usuid").value
         rs.close()
     end function
 
+    ' Exclusão de usuários '
     public function ExcluirUsuario(cn, usuid)
-
-        sql = "DELETE FROM [dbo.[usuario] "
-        sql = "WHERE usuid = " & ObjUsuario.usuid
-
-        cn.Execute(sql)
-        Set rs=Server.CreateObject("ADODB.recordset")
-        rs.Open "SELECT SCOPE_IDENTITY() As usuid;", cn
-        CadastrarUsuario = rs("usuid").value
-        rs.close()
+        sql = "DELETE FROM usuario WHERE usuid = " & usuid
+        cn.Execute sql, excluir
+        ExcluirUsuario = excluir
     end function
     
     'Buscar usuários
     public function BuscarUsuarios(cn)
-        '
-        ' TODO Lógica para busca de usuários
-        '
-        sql = "SELECT [nome],[usuario],[endereco],[cidade],[cep],[usuid] FROM [treinamento].[dbo].[usuario]"
+
+        sql = "SELECT [usuid],[nome],[usuario],[endereco],[cidade],[cep] FROM [treinamento].[dbo].[usuario]"
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001
         set BuscarUsuarios = rs
     end function 
 
-    'Buscar estados
-    public function BuscarEstados(cn)
-        '
-        ' TODO Lógica para busca de estados
-        '
-        sql = "SELECT [estadoid],[nome] FROM [treinamento].[dbo].[estado]"
-        Set rs=Server.CreateObject("ADODB.recordset")
-        rs.Open sql, cn, &H0001
-        set BuscarEstados = rs
-    end function
-
     'Buscar um usuário
     public function BuscarUsuarioPorNomeSenha(cn,usuario,senha)
-        '
-        ' TODO Lógica para busca de usuários
-        '
+
         sql = "SELECT * FROM [treinamento].[dbo].[usuario] where usuario='" & ObjUsuario.getUsuario() & "' and senha='" & ObjUsuario.getSenha() & "'" 
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001
@@ -161,9 +138,7 @@ Class cUsuario
 
     'Buscar um usuário por id
     public function BuscarUsuarioPorID(cn,usuid)
-        '
-        ' TODO Lógica para busca de usuários
-        '
+
         sql = "SELECT * FROM [treinamento].[dbo].[usuario] where usuid= '" & usuid & "' " 
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001

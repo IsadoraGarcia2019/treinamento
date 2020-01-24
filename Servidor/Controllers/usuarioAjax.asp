@@ -77,7 +77,7 @@ function AlterarUsuario()
 	end if
 end function      
 
-function ExcluirUsuario()
+function ExcluirUsuario() 
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 
@@ -86,7 +86,8 @@ function ExcluirUsuario()
 
 	if rs.eof then
 		set ObjUsuario = new cUsuario
-		r = ObjUsuario.ExcluirUsuario(cn, usuid)
+		r  = ObjUsuario.ExcluirUsuario(cn, usuid)
+		stop
 		mensagem = "Usuario excluido com sucesso"
 	else
 	m = rs.RecordCount
@@ -124,7 +125,6 @@ function carregarUsuario()
 end function
 
 function BuscarUsuarios()
-
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set usuarios = new cUsuario
@@ -152,31 +152,4 @@ function BuscarUsuarios()
 	response.write "}"
 	ObjConexao.FecharConexao(cn)
 end function
-
-function BuscarEstados()
-
-	set ObjConexao = new Conexao
-	set cn = ObjConexao.AbreConexao()
-	set estados = new cUsuario
-	set rs = estados.BuscarEstados(cn)
-	if not rs.eof then
-		Response.ContentType = "application/json"
-		response.write "{"
-		response.write """Estados"":["
-		Do while not rs.eof 
-			response.write "{"
-			response.write 		"""estadoid"": """ & rs("estadoid").value & """"
-			response.write 		",""nome"": """ & rs("nome").value & """"
-			response.write "}"
-			if rs.AbsolutePosition < rs.RecordCount then
-				response.write ","
-			end if
-			rs.moveNext()
-		loop
-	end if
-	response.write "]"
-	response.write "}"
-	ObjConexao.FecharConexao(cn)
-end function
-
 %>

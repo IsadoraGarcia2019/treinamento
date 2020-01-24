@@ -1,6 +1,7 @@
 window.addEventListener('load', function(e) {
     carregarUsuario();
     adicionarEventos();
+    debugger
     BuscarEstados();
 
 });
@@ -65,12 +66,13 @@ function carregarUsuario(){
 }
 
 function BuscarEstados() {
+    debugger
     if (!estadoid) {
         return false;
     }
 
     $.ajax({
-        url: "../Servidor/Controllers/usuarioAjax.asp",
+        url: "../Servidor/Controllers/estadoAjax.asp",
         type: 'POST',
         async:false,
         data: {
@@ -87,6 +89,7 @@ function BuscarEstados() {
 }
 
 function preencheOptions(estadoid, data) {
+    debugger
     var estados = data.Estados;
     for (var i = 0; i < estados.length; i++) {
         var opt = document.createElement('option');

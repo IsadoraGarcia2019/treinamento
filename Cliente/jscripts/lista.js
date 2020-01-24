@@ -1,21 +1,80 @@
 var input;
-window.addEventListener('load', function(e) {
+window.addEventListener('DOMContentLoaded', function(e) {
+    debugger
     adicionarEventos();
+    BuscarTarefas();
+
 });
 
 function adicionarEventos(){
+   var body = document.getElementsByTagName("BODY")[0];
+    // carregamento dos dados com valores padrões
+    body.addEventListener("load", function () {
+        BuscarTarefas();
+    });
 
- var btnImg = document.getElementById("btnImg");
- var tblTarefa = document.getElementById("tblTarefa");
+    // var btnImg = document.getElementById("btnImg");
+    // var tblTarefa = document.getElementById("tblTarefa");
 
- btnImg.addEventListener("dblclick", function (e) {
+    // btnImg.addEventListener("dblclick", function (e) {
+    //     debugger
+    //     mudarImagem(e);
+    // });
+
+    // tblTarefa.addEventListener("dblclick", function (e) {
+    //     edicaoTarefa(e);
+    // });
+}
+
+function BuscarTarefas() {
     debugger
-    mudarImagem(e);
-});
+    return $.ajax({
+        url:"../Servidor/Controllers/tarefaAjax.asp",
+        type:'POST',
+        data: {
+            "fnTarget" : "BuscarTarefas"
+        },
+        success:function(data) {
+            debugger
+            PreencheTabela(data);
+        },
+        error: function(xhr, status, error){
+            alert("listagem Tarefas" + xhr + status + error);
+        }
+    });
+}
 
- tblTarefa.addEventListener("dblclick", function (e) {
-    edicaoTarefa(e);
-});
+function PreencheTabela(data) {
+    debugger
+    var dadosCorpo = data.Tarefas;
+    var tblTarefas = document.getElementById("tblTarefas");
+    TabelaCriarCorpo(tblTarefas, dadosCorpo);
+}
+
+
+function TabelaCriarCorpo(tblTarefas, dadosCorpo) {
+    debugger
+    var tbody = tblTarefas.createTBody();
+    for (var element of dadosCorpo) {
+        var row = tbody.insertRow();
+        for (key in element) {
+            var cell = row.insertCell();
+            if (key == 'tarID') {
+                var params = new URLSearchParams();
+                params.append(key, element[key]);
+                // TODO - Melhorar a forma de construção da url criar objeto URL
+                var url = 'TarefaCadastro.asp?' + params.toString();
+                // a.href = url;
+                // var imagem = document.createElement("IMG");
+                // imagem.src = "../Cliente/imagens/editar.png";
+                // a.appendChild(imagem);
+                // cell.appendChild(a);
+                break;
+            }
+            var text = document.createTextNode(element[key]);
+            cell.appendChild(text);
+        }
+    }
 }
 
 function mudarImagem(objImagem, tarID) {
@@ -68,7 +127,7 @@ function edicaoTarefa(e, tableData, tarID) {
         e.target.parentElement.innerHTML = titulo;
     });
 
-    tableData.appendChild(input);
+    titulo.appendChild(input);
 
     input.focus();
 }
