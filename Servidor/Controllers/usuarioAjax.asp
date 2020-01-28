@@ -87,7 +87,7 @@ function ExcluirUsuario()
 	if rs.eof then
 		set ObjUsuario = new cUsuario
 		r  = ObjUsuario.ExcluirUsuario(cn, usuid)
-		stop
+		
 		mensagem = "Usuario excluido com sucesso"
 	else
 	m = rs.RecordCount

@@ -148,7 +148,6 @@ function BuscarGeradores()
 end function
 
 function BuscarTarefas()
-stop
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set tarefas = new Tarefa

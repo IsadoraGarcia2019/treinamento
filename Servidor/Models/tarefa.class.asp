@@ -82,13 +82,11 @@ Class Tarefa
     end function
 
     Public function ExcluirTarefa(cn, tarID)
-        sql = "DELETE FROM [dbo].[tarefa] "
-        sql = "WHERE tarID = " & ObjTarefa.tarID
-
+        sql = "DELETE FROM [dbo].[tarefa] WHERE tarID = " & tarID
         cn.Execute(sql)
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open "SELECT SCOPE_IDENTITY() As tarID;", cn
-        CadastrarTarefa = rs("tarID").value
+        ExcluirTarefa = rs("tarID").value
         rs.close()   
 
     end function
@@ -97,16 +95,15 @@ Class Tarefa
         '
         ' TODO Lógica para busca de geradores
         '
-        stop
         sql = "SELECT [usuid],[nome] FROM [treinamento].[dbo].[usuario]"
         cn.Execute(sql)
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001
+        set BuscarGeradores = rs
     end function
 
     'Buscar tarefas'
     Public function BuscarTarefas(cn)
-        stop
         sqlTarefa = "SELECT [tarID], [tarTitulo], [tarDescricao], [tarData], [tarStatus] FROM [dbo].[tarefa]"
         cn.Execute(sqlTarefa)
         set rs = Server.CreateObject("ADODB.recordset")

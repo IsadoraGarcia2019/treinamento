@@ -1,33 +1,38 @@
-<!-- #include file = "../Servidor/Models/conexao.class.asp" -->
+<!--#include file="../Models/Conexao.class.asp"-->
 <%
 set ObjConexao = new Conexao
 set cn = ObjConexao.AbreConexao()
 
+tarID=Request("tarID")
+tarTitulo=Request("titulo")
+tarStatus=Request("status")
+
+
 dim tarStatus, tarID, tarTitulo
 
 if (Request("fnTarget") <> "") then
-	Execute(Request("fnTarget") & "()")
+	Execute(Request("fnTarget").item & "()")
 end if
 
 function atualizaStatus()
 
-	tarID=Request("id")
-	tarStatus=Request("status")
-
 	sql = ("UPDATE tarefa SET tarStatus = '" &tarStatus& "' WHERE tarID = " &tarID)
-	cn.execute(sql)
+	cn.execute sql, ra
+	Response.ContentType = "application/json"
+	response.write "{"
+	response.write 		"""resposta"": """ & ra & """"
+	response.write "}"
 
-	response.write("true")
 end function
 
 function atualizaTitulo()
-
-	tarID=Request("id")
-	tarTitulo=Request("titulo")
-
+	
 	sql = ("UPDATE tarefa SET tarTitulo = '" & tarTitulo & "' WHERE tarID = " &tarID)
-	cn.execute(sql)
+	cn.execute sql, ra
 
-	response.write("true")
+	Response.ContentType = "application/json"
+	response.write "{"
+	response.write 		"""resposta"": """ & ra & """"
+	response.write "}"
 end function
 %>

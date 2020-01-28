@@ -57,26 +57,31 @@ tr:nth-child(odd) {
     padding: 8px;
 }
 
-#inputFormPaginacao {
-    width: 50px !important;
+.paginacao ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+ 
+}
+.paginacao li{  
+  display: inline-block;
+}
+.paginacao input {
+  width: 50px !important;
     border: 1px solid #1d2120;
     border-radius: 2px;
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 5px;F
 }
 
-.pimba {
-    background-color: #aaa;
-    padding: 5px;
-    ;
-}
-
-#numeroRegistros{
-    text-align: right;
-    color: #1d2120;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    float: right;
+.paginacao button {
+  border-radius: 2px;
+  text-decoration: none;
+  margin: auto 5px;
+  padding: 2px;
+  color: #222;  
+  background-color: lightblue;
+  border: 1px solid black;
 }
 
 td{

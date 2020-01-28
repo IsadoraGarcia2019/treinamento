@@ -21,7 +21,30 @@
                     <th><b>Cep</b></th>
                     <th><b>Editar</b></th>
                 </tr>
-            </thead>            
+            </thead> 
+            <tfoot>
+                <tr>
+                    <th colspan="6">
+                        <div class="paginacao">
+                            <ul>
+                                <button>
+                                    <li><<</li> 
+                                </button>
+                                <button>
+                                    <li><</li> 
+                                </button> <input type="text" name="" id="">
+                                <button>
+                                    <li>></li>
+                                </button> 
+                                <button>
+                                    <li>>></li>
+                                </button>
+                                <li>Mostrando 0 de 0 registros</li>
+                            </ul>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>           
         </table>
     </div>
     <script type="text/javascript" src="./jscripts/listaUsuario.js"></script>
