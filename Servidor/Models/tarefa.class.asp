@@ -44,18 +44,18 @@ Class Tarefa
         tarStatus = p_tarStatus
     End sub
     Public function getDescricao()
-        getDescricao = descricao
+        getDescricao = tarDescricao
     End function
     Public sub setDescricao(byval p_tarDescricao)
-        descricao = p_tarDescricao
+        tarDescricao = p_tarDescricao
     End sub
 
     Public function CadastrarTarefa(cn, ObjTarefa)
         sql = "INSERT INTO [dbo].[tarefa] (tarTitulo, geradorID, tarData, tarStatus, tarDescricao ) VALUES ("
-        sql = sql & "'" & ObjTarefa.getTitulo() & "','"
-        sql = sql & "'" & ObjTarefa.getgeradorID()& "','"
-        sql = sql & "'" & ObjTarefa.getData() & "','"
-        sql = sql & "'" & ObjTarefa.getStatus() & "','" 
+        sql = sql & "'" & ObjTarefa.getTitulo() & "',"
+        sql = sql & "'" & ObjTarefa.getgeradorID()& "',"
+        sql = sql & "'" & ObjTarefa.getData() & "',"
+        sql = sql & "'" & ObjTarefa.getStatus() & "'," 
         sql = sql & "'" & ObjTarefa.getDescricao() & "');"
 
         cn.Execute(sql)
@@ -67,17 +67,17 @@ Class Tarefa
 
     Public function AlterarTarefa(cn, ObjTarefa)
         sql = "UPDATE [dbo].[tarefa] SET "
-        sql = sql & "'" & ObjTarefa.getTitulo()  & "',"
-        sql = sql & "'" & ObjTarefa.getgeradorID() & "',"
-        sql = sql & "'" & ObjTarefa.getData() & "',"
-        sql = sql & "'" & ObjTarefa.getStatus() & "',"
-        sql = sql & "'" & ObjTarefa.getDescricao & "'"
-        sql = sql & "WHERE tarID =" & ObjTarefa.tarID
+        sql = sql & "tarTitulo = '" & ObjTarefa.getTitulo()  & "',"
+        sql = sql & "geradorID = '" & ObjTarefa.getgeradorID() & "',"
+        sql = sql & "tarData = '" & ObjTarefa.getData() & "',"
+        sql = sql & "tarStatus = '" & ObjTarefa.getStatus() & "',"
+        sql = sql & "tarDescricao = '" & ObjTarefa.getDescricao() & "'"
+        sql = sql & "WHERE tarID =" & tarID
 
         cn.Execute(sql)
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open "SELECT SCOPE_IDENTITY() As tarID;", cn
-        CadastrarTarefa = rs("tarID").value
+        AlterarTarefa = rs("tarID").value
         rs.close()   
     end function
 

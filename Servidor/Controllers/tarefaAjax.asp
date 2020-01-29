@@ -10,7 +10,9 @@ dim tarData, tarData2
 dim tarStatus
 dim tarDescricao
 dim rs
+dim PaginaAtual
 
+PaginaAtual = Request("PaginaAtual")
 tarID=cint(0&Request("tarID"))
 tarTitulo= Replace(Request.Form("tarTitulo"), "'","''")
 geradorID=cint(0 & replace(Request.Form("geradorID"), "'", "''"))
@@ -148,31 +150,47 @@ function BuscarGeradores()
 end function
 
 function BuscarTarefas()
+	dim registrosPorPagina : registrosPorPagina = 10
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set tarefas = new Tarefa
 	set rs = tarefas.BuscarTarefas(cn)
 	if not rs.eof then
-		Response.ContentType = "application/json"
-		response.write "{"
-		response.write """Tarefas"":["
-		Do while not rs.eof
-			response.write "{"
-			response.write """tarID"":""" & rs("tarID").value & """"
-			response.write ",""tarTitulo"":""" & rs("tarTitulo").value & """"
-			response.write ",""tarDescricao"":""" & rs("tarDescricao").value & """"
-			response.write ",""tarData"":""" & rs("tarData").value & """"
-			response.write ",""tarStatus"":""" & rs("tarStatus").value & """"
-			response.write "}"
-			if rs.AbsolutePosition < rs.RecordCount then
-				response.write ","
-			end if
-			rs.moveNext()
-		loop
-	end if
-	response.write "]"
-	response.write "}"
-	ObjConexao.FecharConexao(cn)
+		rs.PageSize = registrosPorPagina
+		Dim numeroTotalPaginas : numeroTotalPaginas = rs.PageCount
+		Dim numeroTotalRegistros : numeroTotalRegistros = rs.RecordCount
+		If PaginaAtual < 1 Then
+			PaginaAtual = 1      
+		End If
+		if PaginaAtual > numeroTotalPaginas then 
+			PaginaAtual = numeroTotalPaginas
+		end if
+		rs.AbsolutePage = PaginaAtual
+		fimPagina = registrosPorPagina * PaginaAtual
+        Response.ContentType = "application/json"
+        Response.Write "{"
+        Response.Write """RegistrosPorPagina"":""" & registrosPorPagina & ""","
+        Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
+        Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
+        Response.Write """TotalPaginas"":""" & numeroTotalPaginas & ""","
+        Response.Write """Tarefas"": ["
+        Do While not rs.eof and (rs.AbsolutePosition <= fimPagina)
+        	response.write "{"
+        	response.write """tarID"":""" & rs("tarID").value & """"
+        	response.write ",""tarTitulo"":""" & rs("tarTitulo").value & """"
+        	response.write ",""tarDescricao"":""" & rs("tarDescricao").value & """"
+        	response.write ",""tarData"":""" & rs("tarData").value & """"
+        	response.write ",""tarStatus"":""" & rs("tarStatus").value & """"
+        	response.write "}"
+        	rs.moveNext()
+        	if not rs.eof and rs.AbsolutePosition <= fimPagina then
+        		response.write ","
+        	end if
+        loop
+    end if
+    response.write "]"
+    response.write "}"
+    ObjConexao.FecharConexao(cn)
 end function
 
 ' function atualizaStatus()

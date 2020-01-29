@@ -28,19 +28,19 @@
                     <th colspan="5">
                         <div class="paginacao">
                             <ul>
-                                <button>
+                                <button id="btnPrimeiraPagina">
                                     <li><<</li> 
                                 </button>
-                                <button>
+                                <button id="btnRecuaPagina">
                                     <li><</li> 
-                                </button> <input type="text" name="" id="">
-                                <button>
+                                </button> <input type="text" name="" id="txtPagina">
+                                <button id="btnAvancaPagina">
                                     <li>></li>
                                 </button> 
-                                <button>
+                                <button id="btnUltimaPagina">
                                     <li>>></li>
                                 </button>
-                                <li>Mostrando 0 de 0 registros</li>
+                                <li id="dadosPagina">Mostrando 0 de 0 registros</li>
                             </ul>
                         </div>
                     </th>

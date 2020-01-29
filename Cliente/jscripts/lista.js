@@ -1,38 +1,68 @@
-var input;
+var input
+var PaginaAtual = 0;
 window.addEventListener('DOMContentLoaded', function(e) {
     debugger
     adicionarEventos();
-    BuscarTarefas();
+    BuscarTarefas(PaginaAtual);
 
 });
 
 function adicionarEventos(){
- var body = document.getElementsByTagName("BODY")[0];
-    // carregamento dos dados com valores padrões
-    body.addEventListener("load", function () {
-        BuscarTarefas();
+
+    var btnPrimeiraPagina = document.getElementById("btnPrimeiraPagina");
+    var btnRecuaPagina = document.getElementById("btnRecuaPagina");
+    var btnAvancaPagina = document.getElementById("btnAvancaPagina");
+    var btnUltimaPagina = document.getElementById("btnUltimaPagina");
+    var txtPagina = document.getElementById("txtPagina");
+    var dadosPagina = document.getElementById("dadosPagina");
+
+    btnPrimeiraPagina.addEventListener('click', function(e){
+        PrimeiraPagina(e);
     });
 
-    // var btnImg = document.getElementById("btnImg");
-    // var tblTarefa = document.getElementById("tblTarefa");
+    btnRecuaPagina.addEventListener('click', function(e){
+        RecuaPagina(e);
+    });
 
-    // btnImg.addEventListener("dblclick", function (e) {
-    //     debugger
-    //     atualizaStatus(e);
-    // });
+    btnAvancaPagina.addEventListener('click', function(e){
+        AvancaPagina(e);
+    });
 
-    // tblTarefa.addEventListener("dblclick", function (e) {
-    //     edicaoTarefa(e);
-    // });
+    btnUltimaPagina.addEventListener('click', function(e){
+        UltimaPagina(e);
+    });
+
+    txtPagina.addEventListener('keypress', function(e){
+      if (e.keyCode == 13) {
+        BuscarTarefas(txtPagina.value);}
+    });
 }
 
-function BuscarTarefas() {
+function PrimeiraPagina(e){
+    BuscarTarefas(1);
+}
+
+function  RecuaPagina(e) {
+    debugger
+    BuscarTarefas((PaginaAtual - 1));
+}
+
+function AvancaPagina(e){
+    BuscarTarefas((PaginaAtual + 1));
+}
+
+function UltimaPagina(e){
+    BuscarTarefas(32767);
+}
+
+function BuscarTarefas(PaginaAtual) {
     debugger
     return $.ajax({
         url:"../Servidor/Controllers/tarefaAjax.asp",
         type:'POST',
         data: {
-            "fnTarget" : "BuscarTarefas"
+            "fnTarget" : "BuscarTarefas",
+            "PaginaAtual" : PaginaAtual
         },
         success:function(data) {
             debugger
@@ -48,6 +78,11 @@ function PreencheTabela(data) {
     debugger
     var dadosCorpo = data.Tarefas;
     var tblTarefas = document.getElementById("tblTarefas");
+
+    if (tblTarefas.getElementsByTagName("tbody").length != 0) {
+        var row = document.getElementsByTagName("tbody")[0];
+        row.parentNode.removeChild(row);
+    }
     
     var tbody = tblTarefas.createTBody();
     for (var element of dadosCorpo) {
@@ -99,7 +134,6 @@ function PreencheTabela(data) {
 }
 
 function atualizaStatus(e) {
-    debugger
     var status = e.currentTarget.getAttribute("status");
     var img = event.currentTarget;
 
@@ -137,8 +171,6 @@ function atualizaStatus(e) {
 }
 
 function edicaoTarefa(e) {
-    debugger
-
     var titulo = e.currentTarget.innerText;
     e.currentTarget.innerText = "";
     var tarID = e.currentTarget.id;
@@ -150,7 +182,6 @@ function edicaoTarefa(e) {
 
     input.addEventListener('keypress', function(e) {
         if (e.keyCode == 13) {
-            debugger
             var valorInput = input.value;
             // document.getElementById(e.currentTarget);
             salvaTarefa(valorInput, tarID);

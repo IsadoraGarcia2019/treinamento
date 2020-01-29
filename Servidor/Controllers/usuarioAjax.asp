@@ -91,7 +91,7 @@ function ExcluirUsuario()
 		mensagem = "Usuario excluido com sucesso"
 	else
 	m = rs.RecordCount
-	mensagem  = "Nao foi possivel excluir esse usuario pois ele e gerador de "& m &" tarefas!!"
+	mensagem  = "Nao foi possivel excluir esse usuario pois ele e gerador de "& m &" tarefa(s)!!"
 end if	
 Response.ContentType = "application/json"
 response.write "{"
