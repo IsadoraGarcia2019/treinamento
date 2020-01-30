@@ -12,7 +12,7 @@ dim tarDescricao
 dim rs
 dim PaginaAtual
 
-PaginaAtual = Request("PaginaAtual")
+PaginaAtual = cint(0&Request("PaginaAtual"))
 tarID=cint(0&Request("tarID"))
 tarTitulo= Replace(Request.Form("tarTitulo"), "'","''")
 geradorID=cint(0 & replace(Request.Form("geradorID"), "'", "''"))
@@ -150,7 +150,7 @@ function BuscarGeradores()
 end function
 
 function BuscarTarefas()
-	dim registrosPorPagina : registrosPorPagina = 10
+	dim registrosPorPagina : registrosPorPagina = 30
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set tarefas = new Tarefa

@@ -6,10 +6,9 @@ Response.CharSet = "UTF-8"
 
 dim rs
 dim usuario, senha, nome, endereco, cidade, cep, estadoid, usuid
-dim palavraParaPesquisa
-dim RegistrosPorPagina 
-dim PaginaPesquisa
+dim PaginaAtual
 
+PaginaAtual =cint(0&Request("PaginaAtual"))
 usuid=cint(0&Request("usuid"))
 usuario=replace(Request.Form("usuario"), "'", "''") 
 senha=replace(Request.Form("senha"), "'", "''") 
@@ -125,15 +124,32 @@ function carregarUsuario()
 end function
 
 function BuscarUsuarios()
+	' STOP
+	dim registrosPorPagina : registrosPorPagina = 30
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set usuarios = new cUsuario
 	set rs = usuarios.BuscarUsuarios(cn)
 	if not rs.eof then
+		rs.PageSize = registrosPorPagina
+		Dim numeroTotalPaginas : numeroTotalPaginas = rs.PageCount
+		Dim numeroTotalRegistros : numeroTotalRegistros = rs.RecordCount
+		If PaginaAtual < 1 Then
+			PaginaAtual = 1      
+		End If
+		if PaginaAtual > numeroTotalPaginas then 
+			PaginaAtual = numeroTotalPaginas
+		end if
+		rs.AbsolutePage = PaginaAtual
+		fimPagina = registrosPorPagina * PaginaAtual
 		Response.ContentType = "application/json"
-		response.write "{"
-		response.write """Usuarios"":["
-		Do while not rs.eof 
+		Response.Write "{"
+		Response.Write """RegistrosPorPagina"":""" & registrosPorPagina & ""","
+		Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
+		Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
+		Response.Write """TotalPaginas"":""" & numeroTotalPaginas & ""","
+		Response.Write """Usuarios"": ["
+		Do While not rs.eof and (rs.AbsolutePosition <= fimPagina)
 			response.write "{"
 			response.write 		"""nome"": """ & rs("nome").value & """"
 			response.write 		",""usuario"": """ & rs("usuario").value & """"
@@ -142,10 +158,10 @@ function BuscarUsuarios()
 			response.write 		",""cep"": """ & rs("cep").value & """"
 			response.write 		",""usuid"": """ & rs("usuid").value & """"
 			response.write "}"
-			if rs.AbsolutePosition < rs.RecordCount then
+			rs.moveNext()
+			if not rs.eof and rs.AbsolutePosition <= fimPagina then
 				response.write ","
 			end if
-			rs.moveNext()
 		loop
 	end if
 	response.write "]"

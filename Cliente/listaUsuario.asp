@@ -11,6 +11,7 @@
     <div class="box">
         <p>Usuário</p>
         <a href="usuarioCadastro.asp">Novo Usuário</a>
+        <script type="text/javascript" src="./jscripts/listaUsuario.js"></script>
         <table  id="tblUsuarios">
             <thead>
                 <tr>
@@ -24,30 +25,30 @@
             </thead> 
             <tfoot>
                 <tr>
-                    <th colspan="6">
+                    <td id="rodape" colspan="6">
                         <div class="paginacao">
                             <ul>
-                                <button>
+                                <button id="btnPrimeiraPagina">
                                     <li><<</li> 
                                 </button>
-                                <button>
+                                <button id="btnRecuaPagina">
                                     <li><</li> 
-                                </button> <input type="text" name="" id="">
-                                <button>
+                                </button> 
+                                <input type="text" name="" id="txtPagina">
+                                <button id="btnAvancaPagina">
                                     <li>></li>
                                 </button> 
-                                <button>
+                                <button id="btnUltimaPagina">
                                     <li>>></li>
                                 </button>
-                                <li>Mostrando 0 de 0 registros</li>
+                                <li id="txtDetalhesRegistros">Mostrando Registros</li>
                             </ul>
                         </div>
-                    </th>
+                    </td>
                 </tr>
-            </tfoot>           
+            </tfoot>         
         </table>
     </div>
-    <script type="text/javascript" src="./jscripts/listaUsuario.js"></script>
     <script type="text/javascript" src="./jscripts/auxiliar.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

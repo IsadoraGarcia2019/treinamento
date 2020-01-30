@@ -1,77 +1,77 @@
 body {
-    background-color: white;
-    font-family: Tahoma;
+  background-color: white;
+  font-family: Tahoma;
 }
 
 .box {
-    background-color: #bae4d6;
-    width: 100%;
-    height: 870px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  background-color: #bae4d6;
+  width: 100%;
+  height: 870px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 p {
-    color: #32b899;
-    padding-left: 15px;
-    padding-top: 10px;
-    margin-bottom: 0px !important;
+  color: #32b899;
+  padding-left: 15px;
+  padding-top: 10px;
+  margin-bottom: 0px !important;
 }
 
 a {
-    color: dimgrey;
-    font-size: 12px;
-    padding-top: 5px;
-    padding-left: 15px;
+  color: dimgrey;
+  font-size: 12px;
+  padding-top: 5px;
+  padding-left: 15px;
 }
 
 #tblUsuarios {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 th {
-    background-color: #aaa;
-    color: black;
-    font-size: small;
-    text-align: left;
-    padding: 8px;
+  background-color: #aaa;
+  color: black;
+  font-size: small;
+  text-align: left;
+  padding: 8px;
 }
 
 td {
-    padding-left: 7px;
+  padding-left: 7px;
 }
 
 tr:nth-child(even) {
-    background-color: white;
-    font-size: small;
-    padding: 8px;
+  background-color: #c1c1c1;
+  font-size: small;
+  padding: 8px;
 }
 
 tr:nth-child(odd) {
-    background-color: #c1c1c1;
-    font-size: small;
-    padding: 8px;
+  background-color: white;
+  font-size: small;
+  padding: 8px;
 }
 
 .paginacao ul {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
- 
+
 }
 .paginacao li{  
   display: inline-block;
 }
 .paginacao input {
   width: 50px !important;
-    border: 1px solid #1d2120;
-    border-radius: 2px;
-    margin-top: 5px;
-    margin-bottom: 5px;F
+  border: 1px solid #1d2120;
+  border-radius: 2px;
+  margin-top: 5px;
+  margin-bottom: 5px;F
 }
 
 .paginacao button {
@@ -80,11 +80,14 @@ tr:nth-child(odd) {
   margin: auto 5px;
   padding: 2px;
   color: #222;  
-  background-color: lightblue;
+  font-weight: 900px;
   border: 1px solid black;
 }
 
 td{
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#rodape{
+  background-color: #aaa;
 }

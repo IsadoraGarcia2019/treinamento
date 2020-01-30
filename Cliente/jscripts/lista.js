@@ -1,7 +1,6 @@
 var input
 var PaginaAtual = 0;
 window.addEventListener('DOMContentLoaded', function(e) {
-    debugger
     adicionarEventos();
     BuscarTarefas(PaginaAtual);
 
@@ -17,15 +16,18 @@ function adicionarEventos(){
     var dadosPagina = document.getElementById("dadosPagina");
 
     btnPrimeiraPagina.addEventListener('click', function(e){
-        PrimeiraPagina(e);
+        var txt = txtPagina.value;
+        PrimeiraPagina(e, txt);
     });
 
     btnRecuaPagina.addEventListener('click', function(e){
-        RecuaPagina(e);
+        var txt = txtPagina.value;
+        RecuaPagina(e, txt);
     });
 
     btnAvancaPagina.addEventListener('click', function(e){
-        AvancaPagina(e);
+        var txt = txtPagina.value;
+        AvancaPagina(e, txt);
     });
 
     btnUltimaPagina.addEventListener('click', function(e){
@@ -38,17 +40,18 @@ function adicionarEventos(){
     });
 }
 
-function PrimeiraPagina(e){
-    BuscarTarefas(1);
+function PrimeiraPagina(e, txt){
+    BuscarTarefas(0);
 }
 
-function  RecuaPagina(e) {
-    debugger
-    BuscarTarefas((PaginaAtual - 1));
+function  RecuaPagina(e, txt) {
+ var PaginaAnterior = isNaN(txt) ? 1 : Number(txt) - 1;
+ BuscarTarefas(PaginaAnterior);
 }
 
-function AvancaPagina(e){
-    BuscarTarefas((PaginaAtual + 1));
+function AvancaPagina(e, txt){
+    var ProximaPagina = isNaN(txt) ? 1 : Number(txt) + 1;
+    BuscarTarefas(ProximaPagina);
 }
 
 function UltimaPagina(e){
@@ -56,7 +59,6 @@ function UltimaPagina(e){
 }
 
 function BuscarTarefas(PaginaAtual) {
-    debugger
     return $.ajax({
         url:"../Servidor/Controllers/tarefaAjax.asp",
         type:'POST',
@@ -75,9 +77,16 @@ function BuscarTarefas(PaginaAtual) {
 }
 
 function PreencheTabela(data) {
-    debugger
     var dadosCorpo = data.Tarefas;
     var tblTarefas = document.getElementById("tblTarefas");
+
+    var txtPagina = document.getElementById("txtPagina");
+    txtPagina.value = data.PaginaAtual;
+
+    var detalhesRegistros = document.getElementById("txtDetalhesRegistros");
+    var txtPagina = document.getElementById("txtPagina");
+    detalhesRegistros.innerText = "Mostrando " + data.RegistrosPorPagina + " de " + data.TotalRegistros + " registros";
+    txtPagina.value = data.PaginaAtual
 
     if (tblTarefas.getElementsByTagName("tbody").length != 0) {
         var row = document.getElementsByTagName("tbody")[0];
@@ -101,7 +110,7 @@ function PreencheTabela(data) {
                 continue;
             }
             if (key == 'tarTitulo') {            
-                debugger 
+
                 cell.id = element.tarID;
                 cell.addEventListener('dblclick', function(e){
                     edicaoTarefa(e);
@@ -118,7 +127,7 @@ function PreencheTabela(data) {
                 if (element[key] == 9) {
                     img.src = "./imagens/cadeadoFechado.gif"
                 }   
-                debugger
+                
                 img.setAttribute("status", element[key]);
                 img.setAttribute("tarID", element['tarID']);
                 img.addEventListener('dblclick', function(e){
@@ -208,7 +217,7 @@ function salvaTarefa(txt, tarID) {
             "tarID": tarID
         },
         success: function(resposta) {
-            debugger
+
             alert("alterado com sucesso!");
             window.location.reload();
 

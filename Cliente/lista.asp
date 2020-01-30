@@ -40,7 +40,7 @@
                                 <button id="btnUltimaPagina">
                                     <li>>></li>
                                 </button>
-                                <li id="dadosPagina">Mostrando 0 de 0 registros</li>
+                                <li id="txtDetalhesRegistros">Mostrando Registros</li>
                             </ul>
                         </div>
                     </th>
