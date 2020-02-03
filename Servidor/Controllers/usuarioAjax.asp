@@ -46,7 +46,7 @@ function CadastrarUsuario()
 	response.write 		"""mensagem"": """ & mensagem & """"
 	response.write "}"
 	ObjConexao.FecharConexao(cn)
-end function  
+end function
 
 function AlterarUsuario()
 	set ObjConexao = new Conexao

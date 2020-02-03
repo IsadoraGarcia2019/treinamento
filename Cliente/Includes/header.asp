@@ -16,7 +16,7 @@
 					<a class="nav-link" href="listaUsuario.asp" style="color: white;">Lista de Usuários</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="lista.asp" style="color: white;">Lista de Tarefas</a>
+					<a class="nav-link" href="./listaTarefa.asp" style="color: white;">Lista de Tarefas</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="usuarioCadastro.asp" style="color: white;">Cadastro de Usuários</a>

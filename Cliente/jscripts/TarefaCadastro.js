@@ -156,7 +156,7 @@ function AlterarTarefa(e){
                 debugger
                 alert(data.mensagem);
                 document.getElementById("btnCadastrar").style.display = "none";
-                location.href = "../Cliente/lista.asp";                             
+                location.href = "../Cliente/listaTarefa.asp";                             
             }
         });
     }
@@ -182,7 +182,7 @@ function ExcluirTarefa(e) {
                 },
                 success: function(data){
                     alert(data.mensagem);
-                    location.href = "../Cliente/lista.asp";                             
+                    location.href = "../Cliente/listaTarefa.asp";                             
                 }
             });
         }

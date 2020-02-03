@@ -3,9 +3,9 @@
 <html lang="pt-br">
 <head>
     <!-- #include file = "Includes/HTMLhead.inc" -->
-    <link rel="stylesheet" type="text/css" href="./css/lista.css">
+    <link rel="stylesheet" type="text/css" href="./css/listaTarefa.css">
     <title>Lista de Tarefas</title>
-    <script type="text/javascript" src="./jscripts/lista.js"></script>
+    <script type="text/javascript" src="./jscripts/listaTarefa.js"></script>
     <script type="text/javascript" src="jscripts/auxiliar.js"></script>
 </head>
 <body>
