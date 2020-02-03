@@ -121,6 +121,9 @@ function CadastrarTarefa(e) {
             alert(data.mensagem);
             document.getElementById("btnCadastrar").style.display = "none";            
             document.getElementById("btnExcluir").style.display = "inline";            
+        }, 
+        error:function(data){
+            alert("Data inválida");
         }
     });
 }
@@ -157,6 +160,9 @@ function AlterarTarefa(e){
                 alert(data.mensagem);
                 document.getElementById("btnCadastrar").style.display = "none";
                 location.href = "../Cliente/listaTarefa.asp";                             
+            }, 
+            erro: function(data){
+                alert("Data inválida");
             }
         });
     }

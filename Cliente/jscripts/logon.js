@@ -10,7 +10,6 @@ function adicionarEventos(){
 }
 
 function verificarURL(event) {
-    debugger
     event.preventDefault();
     var usuario = document.getElementById("usuario")
     var senha = document.getElementById("senha")

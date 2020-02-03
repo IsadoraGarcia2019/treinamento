@@ -49,6 +49,7 @@ function CadastrarUsuario()
 end function
 
 function AlterarUsuario()
+	stop
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set ObjUsuario = new cUsuario

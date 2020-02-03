@@ -32,20 +32,22 @@ function CadastrarTarefa()
 
 	tarData = Replace(tarData ,"T", " ")
 	tarData = FormatDateTime(tarData)
+	if tarData <> "dd/mm/AAAA  hh:mm:ss" then
+		alerta = "data inválida"
+	else
+		mensagem = "Tarefa não cadastrada!"
 
-	mensagem = "Tarefa não cadastrada!"
-
-	if ObjTarefa.validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
-		ObjTarefa.setTitulo(tarTitulo)
-		ObjTarefa.setgeradorID(geradorID)
-		ObjTarefa.setData(tarData)
-		ObjTarefa.setStatus(tarStatus)
-		ObjTarefa.setDescricao(tarDescricao)
-		
-		r = ObjTarefa.CadastrarTarefa(cn, ObjTarefa)
-		mensagem = "Tarefa cadastrada com sucesso!"
+		if ObjTarefa.validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
+			ObjTarefa.setTitulo(tarTitulo)
+			ObjTarefa.setgeradorID(geradorID)
+			ObjTarefa.setData(tarData)
+			ObjTarefa.setStatus(tarStatus)
+			ObjTarefa.setDescricao(tarDescricao)
+			
+			r = ObjTarefa.CadastrarTarefa(cn, ObjTarefa)
+			mensagem = "Tarefa cadastrada com sucesso!"
+		end if
 	end if
-	
 	Response.ContentType = "application/json"
 	response.write "{"
 	response.write 		"""mensagem"": """ & mensagem & """"
@@ -167,30 +169,30 @@ function BuscarTarefas()
 		end if
 		rs.AbsolutePage = PaginaAtual
 		fimPagina = registrosPorPagina * PaginaAtual
-        Response.ContentType = "application/json"
-        Response.Write "{"
-        Response.Write """RegistrosPorPagina"":""" & registrosPorPagina & ""","
-        Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
-        Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
-        Response.Write """TotalPaginas"":""" & numeroTotalPaginas & ""","
-        Response.Write """Tarefas"": ["
-        Do While not rs.eof and (rs.AbsolutePosition <= fimPagina)
-        	response.write "{"
-        	response.write """tarID"":""" & rs("tarID").value & """"
-        	response.write ",""tarTitulo"":""" & rs("tarTitulo").value & """"
-        	response.write ",""tarDescricao"":""" & rs("tarDescricao").value & """"
-        	response.write ",""tarData"":""" & rs("tarData").value & """"
-        	response.write ",""tarStatus"":""" & rs("tarStatus").value & """"
-        	response.write "}"
-        	rs.moveNext()
-        	if not rs.eof and rs.AbsolutePosition <= fimPagina then
-        		response.write ","
-        	end if
-        loop
-    end if
-    response.write "]"
-    response.write "}"
-    ObjConexao.FecharConexao(cn)
+		Response.ContentType = "application/json"
+		Response.Write "{"
+		Response.Write """RegistrosPorPagina"":""" & registrosPorPagina & ""","
+		Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
+		Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
+		Response.Write """TotalPaginas"":""" & numeroTotalPaginas & ""","
+		Response.Write """Tarefas"": ["
+		Do While not rs.eof and (rs.AbsolutePosition <= fimPagina)
+			response.write "{"
+			response.write """tarID"":""" & rs("tarID").value & """"
+			response.write ",""tarTitulo"":""" & rs("tarTitulo").value & """"
+			response.write ",""tarDescricao"":""" & rs("tarDescricao").value & """"
+			response.write ",""tarData"":""" & rs("tarData").value & """"
+			response.write ",""tarStatus"":""" & rs("tarStatus").value & """"
+			response.write "}"
+			rs.moveNext()
+			if not rs.eof and rs.AbsolutePosition <= fimPagina then
+				response.write ","
+			end if
+		loop
+	end if
+	response.write "]"
+	response.write "}"
+	ObjConexao.FecharConexao(cn)
 end function
 
 ' function atualizaStatus()

@@ -1,7 +1,6 @@
 window.addEventListener('load', function(e) {
     carregarUsuario();
     adicionarEventos();
-    debugger
     BuscarEstados();
 
 });
@@ -31,8 +30,7 @@ function adicionarEventos(){
 }
 
 function carregarUsuario(){    
-    debugger
-    var queryString = window.location.search;
+   var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
     var id = urlParams.get('usuid');
     if (id != 0 && id != null) {
@@ -66,8 +64,7 @@ function carregarUsuario(){
 }
 
 function BuscarEstados() {
-    debugger
-    if (!estadoid) {
+   if (!estadoid) {
         return false;
     }
 
@@ -89,8 +86,7 @@ function BuscarEstados() {
 }
 
 function preencheOptions(estadoid, data) {
-    debugger
-    var estados = data.Estados;
+   var estados = data.Estados;
     for (var i = 0; i < estados.length; i++) {
         var opt = document.createElement('option');
         opt.innerHTML = estados[i]['nome'];

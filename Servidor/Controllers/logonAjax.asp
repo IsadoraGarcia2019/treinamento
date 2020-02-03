@@ -10,8 +10,8 @@ function ValidaLogin()
 	
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
-	login=Request("usuario")
-	senha=Request("senha")
+	login=Replace(Request("usuario"), "'", "''")
+	senha=Replace(Request("senha"), "'", "''")
 
 	set rs = cn.execute("SELECT * FROM usuario WHERE usuario = '" & login &"' AND senha = '" & senha & "' ")
 
