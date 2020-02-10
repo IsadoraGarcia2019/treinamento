@@ -4,7 +4,7 @@ body {
 }
 
 .box {
-  background-color: #bae4d6;
+  background-color: #c9f5ef;
   width: 100%;
   height: 870px;
   display: block;
@@ -13,14 +13,14 @@ body {
 }
 
 p {
-  color: #32b899;
+  color: #20856d;
   padding-left: 15px;
   padding-top: 10px;
   margin-bottom: 0px !important;
 }
 
 a {
-  color: dimgrey;
+  color: black !important;
   font-size: 12px;
   padding-top: 5px;
   padding-left: 15px;
@@ -75,6 +75,7 @@ tr:nth-child(odd) {
 }
 
 .paginacao button {
+  background-color: white !important;
   border-radius: 2px;
   text-decoration: none;
   margin: auto 5px;
@@ -90,4 +91,25 @@ td{
 }
 #rodape{
   background-color: #aaa;
+}
+.boxInicial{
+  border-radius: 2px;
+  margin-top: 60px;
+  background-color: #aaa;
+  height: 525px;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#listagem{
+  height: 80px;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+#txt{
+  color: black;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 50px; 
 }

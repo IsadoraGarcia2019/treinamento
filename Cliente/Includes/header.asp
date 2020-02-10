@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #aaa; color: white;">
-		<a class="navbar-brand" href="#" style="color: #404a47; padding-left: 0 !important;">Página Incial</a>
+		<a class="navbar-brand" href="paginaInicial.asp" style="color: #404a47; padding-left: 0 !important;">Página Incial</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
 			<span class="navbar-toggler-icon"></span>
 		</button>

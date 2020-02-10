@@ -30,7 +30,7 @@
             <br />
 
             <label for="tarData">Data: </label>
-            <input type="datetime-local" id="tarData" name="tarData" min="1900-01-01T00:00:00" max="2100-12-31T23:59:59">
+            <input type="datetime-local" id="tarData" name="tarData" min="1900-01-01T01:01" max="2100-12-31T23:59">
 
             <br />
 

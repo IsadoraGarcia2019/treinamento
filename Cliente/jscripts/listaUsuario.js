@@ -1,8 +1,6 @@
 var PaginaAtual = 0;
 document.addEventListener('DOMContentLoaded', function () {
     AdicionarEventos();
-    /*TODO - Evento de load da pagina não está funcionando por isso coloquei aqui verificar uma forma de resolver
-    */
     BuscarUsuarios(PaginaAtual);
 });
 
@@ -30,13 +28,13 @@ function AdicionarEventos() {
     });
 
     btnUltimaPagina.addEventListener('click', function(e){
-        debugger
         UltimaPagina(e);
     });
 
     txtPagina.addEventListener('keypress', function(e){
-      if (e.keyCode == 13) {
-        BuscarUsuarios(txtPagina.value);}
+        if (e.keyCode == 13) {
+            irParaPagina(e);
+        }
     });
 }
 
@@ -45,13 +43,11 @@ function PrimeiraPagina(e, txt){
 }
 
 function  RecuaPagina(e, txt) {
-    debugger
     var PaginaAnterior = isNaN(txt) ? 1 : Number(txt) - 1;
     BuscarUsuarios(PaginaAnterior);
 }
 
 function AvancaPagina(e, txt){
-    debugger
     var ProximaPagina = isNaN(txt) ? 1 : Number(txt) + 1;
     BuscarUsuarios(ProximaPagina);
 }
@@ -60,8 +56,12 @@ function UltimaPagina(e){
     BuscarUsuarios(32767);
 }
 
-function BuscarUsuarios(PaginaAtual) {
+function irParaPagina(e){
+    e.currentTarget.value;
+    var irParaPagina = isNaN(txt) ? 1 : Number(txt) + 1;
+}
 
+function BuscarUsuarios(PaginaAtual) {
     return $.ajax({
         url: "../Servidor/Controllers/usuarioAjax.asp",
         type: 'POST',
@@ -82,7 +82,6 @@ function PreencheTabela(data) {
     var dadosCorpo = data.Usuarios;
     var tblUsuarios = document.getElementById("tblUsuarios");
     TabelaCriarCorpo(tblUsuarios, dadosCorpo);
-    debugger
     var txtPagina = document.getElementById("txtPagina");
     txtPagina.value = data.PaginaAtual;
 

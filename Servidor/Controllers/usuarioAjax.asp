@@ -8,7 +8,7 @@ dim rs
 dim usuario, senha, nome, endereco, cidade, cep, estadoid, usuid
 dim PaginaAtual
 
-PaginaAtual =cint(0&Request("PaginaAtual"))
+PaginaAtual = cint(0&Request("PaginaAtual"))
 usuid=cint(0&Request("usuid"))
 usuario=replace(Request.Form("usuario"), "'", "''") 
 senha=replace(Request.Form("senha"), "'", "''") 
@@ -125,7 +125,6 @@ function carregarUsuario()
 end function
 
 function BuscarUsuarios()
-	' STOP
 	dim registrosPorPagina : registrosPorPagina = 30
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
@@ -143,12 +142,9 @@ function BuscarUsuarios()
 		end if
 		rs.AbsolutePage = PaginaAtual
 		fimPagina = registrosPorPagina * PaginaAtual
+		registrosPorPagina = 0
 		Response.ContentType = "application/json"
-		Response.Write "{"
-		Response.Write """RegistrosPorPagina"":""" & registrosPorPagina & ""","
-		Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
-		Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
-		Response.Write """TotalPaginas"":""" & numeroTotalPaginas & ""","
+		Response.Write "{"		
 		Response.Write """Usuarios"": ["
 		Do While not rs.eof and (rs.AbsolutePosition <= fimPagina)
 			response.write "{"
@@ -159,6 +155,7 @@ function BuscarUsuarios()
 			response.write 		",""cep"": """ & rs("cep").value & """"
 			response.write 		",""usuid"": """ & rs("usuid").value & """"
 			response.write "}"
+			registrosPorPagina = registrosPorPagina + 1
 			rs.moveNext()
 			if not rs.eof and rs.AbsolutePosition <= fimPagina then
 				response.write ","
@@ -166,6 +163,10 @@ function BuscarUsuarios()
 		loop
 	end if
 	response.write "]"
+	Response.Write ",""RegistrosPorPagina"":""" & registrosPorPagina & ""","
+	Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
+	Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
+	Response.Write """TotalPaginas"":""" & numeroTotalPaginas & """"
 	response.write "}"
 	ObjConexao.FecharConexao(cn)
 end function

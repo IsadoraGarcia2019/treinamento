@@ -4,7 +4,7 @@ set ObjConexao = new Conexao
 set cn = ObjConexao.AbreConexao()
 
 tarID=Request("tarID")
-tarTitulo=Request("titulo")
+tarTitulo=Replace(Request("titulo"), "'", "''")
 tarStatus=Request("status")
 
 

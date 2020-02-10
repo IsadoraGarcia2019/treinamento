@@ -32,8 +32,9 @@ function verificarURL(event) {
             senha: document.getElementById("senha").value
         },
         success: function(retorno) {
+            debugger
             if (retorno == 'true') {
-                window.location.href = "./listaUsuario.asp";
+                window.location.href = "./paginaInicial.asp";
             } else {
 
                 mostraAlerta("Usuario e/ou senha incorretos!")

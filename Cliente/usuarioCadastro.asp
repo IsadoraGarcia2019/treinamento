@@ -40,7 +40,7 @@
            <div class="campos">
 
                 <label for="cep">Cep: </label>
-                <input type="number" id="cep" name="cep" maxlength="8">
+                <input type="number" id="cep" name="cep" maxlength="8" placeholder=" _ _ . _ _ _ - _ _">
 
                 <label for="estadoid">Estado: </label>
                 <select name="estadoid" id="estadoid">                

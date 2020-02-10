@@ -1,13 +1,13 @@
 var input
 var PaginaAtual = 0;
 window.addEventListener('DOMContentLoaded', function(e) {
+    debugger
     adicionarEventos();
     BuscarTarefas(PaginaAtual);
 
 });
 
 function adicionarEventos(){
-
     var btnPrimeiraPagina = document.getElementById("btnPrimeiraPagina");
     var btnRecuaPagina = document.getElementById("btnRecuaPagina");
     var btnAvancaPagina = document.getElementById("btnAvancaPagina");
@@ -35,8 +35,9 @@ function adicionarEventos(){
     });
 
     txtPagina.addEventListener('keypress', function(e){
-      if (e.keyCode == 13) {
-        BuscarTarefas(txtPagina.value);}
+        if (e.keyCode == 13) {
+            irParaPagina(e);
+        }
     });
 }
 
@@ -58,6 +59,11 @@ function UltimaPagina(e){
     BuscarTarefas(32767);
 }
 
+function irParaPagina(e){
+    e.currentTarget.value;
+    var irParaPagina = isNaN(txt) ? 1 : Number(txt) + 1;
+}
+
 function BuscarTarefas(PaginaAtual) {
     return $.ajax({
         url:"../Servidor/Controllers/tarefaAjax.asp",
@@ -67,7 +73,6 @@ function BuscarTarefas(PaginaAtual) {
             "PaginaAtual" : PaginaAtual
         },
         success:function(data) {
-            debugger
             PreencheTabela(data);
         },
         error: function(xhr, status, error){

@@ -1,9 +1,8 @@
-<!-- #include file = "../Models/conexao.class.asp" -->
+<!-- #include file = "../Models/Conexao.class.asp" -->
 <!-- #include file = "../Models/tarefa.class.asp" -->
 <%
 Response.CodePage = 65001
 Response.CharSet = "UTF-8"
-
 dim tarTitulo
 dim geradorID
 dim tarData, tarData2
@@ -27,68 +26,57 @@ end if
 function CadastrarTarefa()
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
-
 	set ObjTarefa = new Tarefa
-
 	tarData = Replace(tarData ,"T", " ")
 	tarData = FormatDateTime(tarData)
 	if tarData <> "dd/mm/AAAA  hh:mm:ss" then
 		alerta = "data inválida"
 	else
-		mensagem = "Tarefa não cadastrada!"
-
-		if ObjTarefa.validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
-			ObjTarefa.setTitulo(tarTitulo)
-			ObjTarefa.setgeradorID(geradorID)
-			ObjTarefa.setData(tarData)
-			ObjTarefa.setStatus(tarStatus)
-			ObjTarefa.setDescricao(tarDescricao)
-			
-			r = ObjTarefa.CadastrarTarefa(cn, ObjTarefa)
-			mensagem = "Tarefa cadastrada com sucesso!"
-		end if
-	end if
-	Response.ContentType = "application/json"
-	response.write "{"
-	response.write 		"""mensagem"": """ & mensagem & """"
-	response.write "}"
-	ObjConexao.FecharConexao(cn)
-end function
-
-function AlterarTarefa()
-	set ObjConexao = new Conexao
-	set cn = ObjConexao.AbreConexao()
-	set ObjTarefa = new Tarefa
-	
-	mensagem = "Não foi possível aletar essa tarefa"
-
-	if tarID > 0 then
-
-		ObjTarefa.setId(tarID)
+	mensagem = "Tarefa não cadastrada!"
+	if ObjTarefa.validaTarefa(tarTitulo,geradorID,tarData,tarStatus,tarDescricao) then
 		ObjTarefa.setTitulo(tarTitulo)
 		ObjTarefa.setgeradorID(geradorID)
 		ObjTarefa.setData(tarData)
 		ObjTarefa.setStatus(tarStatus)
 		ObjTarefa.setDescricao(tarDescricao)
 
+		r = ObjTarefa.CadastrarTarefa(cn, ObjTarefa)
+		mensagem = "Tarefa cadastrada com sucesso!"
+	end if
+end if
+Response.ContentType = "application/json"
+response.write "{"
+response.write 		"""mensagem"": """ & mensagem & """"
+response.write "}"
+ObjConexao.FecharConexao(cn)
+end function
+function AlterarTarefa()
+	set ObjConexao = new Conexao
+	set cn = ObjConexao.AbreConexao()
+	set ObjTarefa = new Tarefa
+	
+	mensagem = "Não foi possível aletar essa tarefa"
+	if tarID > 0 then
+		ObjTarefa.setId(tarID)
+		ObjTarefa.setTitulo(tarTitulo)
+		ObjTarefa.setgeradorID(geradorID)
+		ObjTarefa.setData(tarData)
+		ObjTarefa.setStatus(tarStatus)
+		ObjTarefa.setDescricao(tarDescricao)
 		r = ObjTarefa.AlterarTarefa(cn, ObjTarefa)
 		mensagem = "Tarefa alterada com sucesso!"		
 	end if
-
 	Response.ContentType = "application/json"
 	response.write "{"
 	response.write 		"""mensagem"": """ & mensagem & """"
 	response.write "}"
 	ObjConexao.FecharConexao(cn)
 end function
-
 function ExcluirTarefa()
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
 	set ObjTarefa = new Tarefa
-
 	mensagem = "Não foi possível excluir essa tarefa"
-
 	r = ObjTarefa.ExcluirTarefa(cn, tarID)
 	mensagem = "Tarefa excluida com sucesso"
 	
@@ -98,22 +86,17 @@ function ExcluirTarefa()
 	response.write "}"
 	ObjConexao.FecharConexao(cn)
 end function
-
 function carregarTarefa()
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
-
 	if tarID > 0 then 
-
 		set rs = cn.Execute("SELECT * FROM tarefa WHERE tarID = "&tarID)
-
 		if not rs.eof then
 			tarData = FormatDateTime(rs("tarData"))
 			novaData = split(tarData," ")
 			Data = split(novaData(0),"/")
 			Data2 = Data(2) & "-" & Data(1) & "-" & Data(0)
 			novavar = Data2 & "T" & NovaData(1)
-
 			Response.ContentType = "application/json"
 			response.write "{"
 			response.write 		"""tarTitulo"": """ & rs("tarTitulo").value & """"
@@ -125,7 +108,6 @@ function carregarTarefa()
 		end if
 	end if
 end function
-
 function BuscarGeradores()
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
@@ -150,8 +132,8 @@ function BuscarGeradores()
 	response.write "}"
 	ObjConexao.FecharConexao(cn)
 end function
-
 function BuscarTarefas()
+	' stop
 	dim registrosPorPagina : registrosPorPagina = 30
 	set ObjConexao = new Conexao
 	set cn = ObjConexao.AbreConexao()
@@ -169,12 +151,9 @@ function BuscarTarefas()
 		end if
 		rs.AbsolutePage = PaginaAtual
 		fimPagina = registrosPorPagina * PaginaAtual
+		registrosPorPagina = 0
 		Response.ContentType = "application/json"
 		Response.Write "{"
-		Response.Write """RegistrosPorPagina"":""" & registrosPorPagina & ""","
-		Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
-		Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
-		Response.Write """TotalPaginas"":""" & numeroTotalPaginas & ""","
 		Response.Write """Tarefas"": ["
 		Do While not rs.eof and (rs.AbsolutePosition <= fimPagina)
 			response.write "{"
@@ -184,6 +163,7 @@ function BuscarTarefas()
 			response.write ",""tarData"":""" & rs("tarData").value & """"
 			response.write ",""tarStatus"":""" & rs("tarStatus").value & """"
 			response.write "}"
+			registrosPorPagina = registrosPorPagina + 1
 			rs.moveNext()
 			if not rs.eof and rs.AbsolutePosition <= fimPagina then
 				response.write ","
@@ -191,29 +171,11 @@ function BuscarTarefas()
 		loop
 	end if
 	response.write "]"
+	Response.Write ",""RegistrosPorPagina"":""" & registrosPorPagina & ""","
+	Response.Write """PaginaAtual"":""" & PaginaAtual & ""","
+	Response.Write """TotalRegistros"":""" & numeroTotalRegistros & ""","
+	Response.Write """TotalPaginas"":""" & numeroTotalPaginas & """"
 	response.write "}"
 	ObjConexao.FecharConexao(cn)
 end function
-
-' function atualizaStatus()
-' 	set ObjConexao = new Conexao
-' 	set cn = ObjConexao.AbreConexao()
-' 	set ObjTarefa = new Tarefa
-
-' 	ObjTarefa.setStatus(tarStatus)
-
-' 	r = ObjTarefa.AlterarTarefa(cn, tarID)
-' 	ObjConexao.FecharConexao(cn)
-' end function
-
-' function atualizaTitulo()
-' 	set ObjConexao = new Conexao
-' 	set cn = ObjConexao.AbreConexao()
-' 	set ObjTarefa = new Tarefa
-
-' 	ObjTarefa.setTitulo(tarTitulo)
-
-' 	r = ObjTarefa.AlterarTarefa(cn, tarID)
-' 	ObjConexao.FecharConexao(cn)
-' end function
 %>

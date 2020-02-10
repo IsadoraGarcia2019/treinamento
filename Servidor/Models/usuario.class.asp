@@ -116,7 +116,7 @@ Class cUsuario
     
     'Buscar usuários
     public function BuscarUsuarios(cn)
-
+        
         sql = "SELECT [usuid],[nome],[usuario],[endereco],[cidade],[cep] FROM [treinamento].[dbo].[usuario]"
         Set rs=Server.CreateObject("ADODB.recordset")
         rs.Open sql, cn, &H0001
