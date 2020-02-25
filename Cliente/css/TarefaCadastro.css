@@ -3,18 +3,18 @@ body {
     font-family: Tahoma;
 }
 .box {
-    background-color: #edfff9;
+    background-color: #c9f5ef;
     width: 600px;
     height: 400px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
-    border-radius: 5px;
-    border: 2px solid #aaa;
+    border-radius: 2px;
+    border: 2px solid #595959;
 }
 p {
-    color: #32b899;
+    color: #20856d;
     padding-left: 15px;
     padding-top: 10px;
 }
@@ -53,22 +53,22 @@ textarea{
 }
 button {
     width: 80px;
-    background-color: #edfff9;
-    border: 2px solid #edfff9;
-    color: #2276a3;
+    background-color: #c9f5ef;
+    border: 2px solid #c9f5ef;
+    color: black;
     margin-left: 75px;
     margin-top: 5px;
 }
 input {
-    border: 1px solid #2276a3;
+    border: 1px solid #595959;
     border-radius: 2px;
 }
 select {
-    border: 1px solid #2276a3;
+    border: 1px solid #595959;
     border-radius: 2px;
 }
 textarea {
-    border: 1px solid #2276a3;
+    border: 1px solid #595959;
     border-radius: 2px;
 }
 
